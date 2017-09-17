@@ -1,0 +1,17 @@
+.header(@h) {
+    .navbar {
+        background-color:rgba(0, 0, 0, .1);
+        font-size: 32px;
+        .navbar-item {
+            flex: 1;
+            .navbar-item-link {
+                height: @h;
+                line-height: @h;
+                display: block;
+                text-align: center;
+                color: @color;
+                user-select: none;
+            }
+        }
+    }
+}

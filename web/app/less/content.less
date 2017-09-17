@@ -1,0 +1,25 @@
+.content(@h) {
+    .content{
+            height:~"calc(100vh - @{h})";
+            overflow-y: auto;
+            .report-main-item {
+                margin: 10px 0;
+                background-color: rgba(0, 0, 0, .01);
+               height: 500px;
+                &:extend(.flex-column);
+                .report-main-item-title {
+                    color: @title-color;
+                    font-size: 30px;
+                    padding-top: 10px;
+                    text-align: center;
+                }
+                .report-main-item-body {
+                    flex: 1;
+                    display: flex;
+                    .report-chart-content {
+                        flex: 1;
+                    }
+                }
+            }
+        }
+    }

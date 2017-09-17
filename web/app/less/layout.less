@@ -1,0 +1,29 @@
+@import "./header";
+@import "./content";
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+.fullscreen{
+    width: 100vw;
+    min-height: 100vh;
+}
+html,
+body,
+.main {
+    &:extend(.fullscreen);
+    .layout{
+        .header(@header-height);
+        .content(@header-height);
+    }
+    
+}
+body {
+    color: @color;
+    background-color: @bg!important;
+    background-image: url(../imgs/1.jpg);
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: cover;
+}
+
