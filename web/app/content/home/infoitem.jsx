@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 
-import { Icon } from 'antd-mobile';
-import monthSvg from "app/svg/month.svg";
-import todaySvg from "app/svg/today.svg";
+import {chartColors} from 'app/libs/echarts';
 
 class componentName extends Component {
     format(data) {
@@ -20,26 +18,19 @@ class componentName extends Component {
     }
     renderContent(arr) {
         let content = [];
-
         if (Array.isArray(arr)) {
             content = arr.map((item, _idx) => {
                 let [dv, dp, dp_cls] = this.format(item.day);
                 let [mv, mp, mp_cls] = this.format(item.mon);
-                return <div key={_idx} className="infopanel-item">
+                return <div key={_idx} className="infopanel-item" style={{color:chartColors[_idx]}}>
                     <div className="infopanel-item-column">
                         {item.name}
-                    </div>
-                    <div className="icon">
-                        <Icon type={todaySvg} size="xs" />
                     </div>
                     <div className="infopanel-item-column price">
                         {dv}
                         <span className={"rate " + dp_cls}>
                             {dp}
                         </span>
-                    </div>
-                    <div className="icon">
-                        <Icon type={monthSvg} size="xs" />
                     </div>
                     <div className="infopanel-item-column price">
                         {mv}

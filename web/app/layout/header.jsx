@@ -29,8 +29,12 @@ class componentName extends Component {
         return <Flex className="navbar">
             {LINKS.map(l => <div key={l.key} className="navbar-item">
                 <NavLink className="navbar-item-link" to={"/" + l.key} activeClassName="active">
-                    <Icon type={l.icon} />
-                    <div>{l.name}</div>
+                    <div className="header-item-icon">
+                        <Icon type={l.icon} />
+                    </div>
+                    <div className="header-item-name">
+                        {l.name}
+                    </div>
                 </NavLink>
             </div>)
             }

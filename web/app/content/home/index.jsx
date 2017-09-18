@@ -1,9 +1,9 @@
-import { Flex, Tabs } from 'antd-mobile';
 import React, { Component, PropTypes } from 'react'
 
 import Chart from './chart';
 import Community from "app/libs/cfg";
 import InfoItem from './infoitem';
+import { Tabs } from 'antd-mobile';
 import fetchData from 'app/libs/fetch';
 
 const TabPane = Tabs.TabPane;
@@ -57,15 +57,9 @@ class Report extends Component {
             <Chart rptdata={rptdata} />
         </TabPane>
     }
-    callback(key) {
-        console.log('onChange', key);
-    }
-    handleTabClick(key) {
-        console.log('onTabClick', key);
-    }
     render() {
         return (
-            <Tabs className="content" onChange={this.callback} onTabClick={this.handleTabClick} animated={false} destroyInactiveTabPane={true}>
+            <Tabs className="content" animated={false} destroyInactiveTabPane={true}>
                 {this.state.data.map((c, idx) => {
                     return this.getCardRepot(idx, c)
                 })

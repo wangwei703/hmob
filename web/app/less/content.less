@@ -1,41 +1,35 @@
 .content(@h) {
     .content {
-        height:~"calc(100vh - @{h})";
-        overflow-y: auto;
+        height:~"calc(100% - @{h})";
         &:extend(.flex-column);
         .am-tabs-content {
             flex: 1;
             .am-tabs-tabpane {
                 &:extend(.flex-column);
             }
+            .am-tabs-tabpane-active{
+                height:100%;
+                overflow-y: auto;
+            }
         }
     }
     .infopanel {
         .infopanel-item {
             margin: 20px;
-            height: 100px;
-            line-height: 100px;
+            height: 80px;
+            line-height: 80px;
             display: grid;
             grid-column-gap: 10px;
-            grid-template-columns: 160px 35px 2fr 35px 2fr;
-            // &:not(:last-child) {
-            //     margin-bottom: 40px;
-            // }
-            .icon {
-                color: @color3;
-                text-align: right;
-                padding-top: 15px;
-            }
+            grid-template-columns: 180px 2fr 2fr;
+            font-size: 38px;
+             color: @color3;
             .infopanel-item-column {
-                font-size: 36px;
-                color: @color3;
-                &.price {
-                    font-size: 44px;
-                    color: @blue;
-                }
+                // &.price {
+                //     color: @blue;
+                // }
                 .rate {
-                    font-size: 24px;
-                    color: @green;
+                    font-size: 18px;
+                    // color: @green;
                     &.down {
                         color: @red;
                     }

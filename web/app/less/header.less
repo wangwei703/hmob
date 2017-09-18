@@ -1,7 +1,7 @@
 .header(@h) {
     .navbar {
-        background-color:rgba(0, 0, 0, .1);
-        font-size: 32px;
+        background-color: rgba(0, 0, 0, .1);
+        font-size: 24px;
         .navbar-item {
             flex: 1;
             .navbar-item-link {
@@ -9,10 +9,19 @@
                 line-height: @h;
                 display: block;
                 text-align: center;
-                color: @color;
+                color: @color2;
                 user-select: none;
-                &.active{
+                &.active {
                     background-color: rgba(0, 0, 0, 0.1);
+                }
+                .header-item-icon {
+                    height: @h/2;
+                    line-height: @h/2;
+                    padding-top:@h/2*.2;
+                }
+                .header-item-name {
+                    height: @h/2*.8;
+                    line-height: @h/2*.8;
                 }
             }
         }
