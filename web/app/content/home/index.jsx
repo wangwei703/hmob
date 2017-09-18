@@ -1,8 +1,12 @@
+import { Flex, Tabs } from 'antd-mobile';
 import React, { Component, PropTypes } from 'react'
-import Community from "app/libs/cfg";
-import fetchData from 'app/libs/fetch';
-import { Flex } from 'antd-mobile';
+
 import Chart from './chart';
+import Community from "app/libs/cfg";
+import InfoItem from './infoitem';
+import fetchData from 'app/libs/fetch';
+
+const TabPane = Tabs.TabPane;
 class Report extends Component {
     state = {
         data: []
@@ -16,11 +20,9 @@ class Report extends Component {
                 data.push({
                     key: c.key,
                     name: c.name,
-                    data: {
-                        day: dayData,
-                        mon: monData,
-                        source: json.source
-                    }
+                    day: dayData,
+                    mon: monData,
+                    source: json.source
                 });
             })
             this.setState({
@@ -29,12 +31,14 @@ class Report extends Component {
         });
     }
 
-    getCardRepot(json) {
+    getCardRepot(key, json) {
         let rptdata = Object.entries(json.source).map((s, idx) => {
             let sk = s[0], sn = s[1];
             let dayData = json.day.find(d => d.s === sk),
                 monData = json.mon.find(d => d.s === sk),
-                data = {};
+                data = {
+                    name: sn
+                };
             if (dayData)
                 data.day = {
                     v: dayData.a,
@@ -46,26 +50,27 @@ class Report extends Component {
                     p: monData.p
                 }
             }
-            return {
-                name: sn,
-                data
-            };
+            return data;
         });
-        return <Chart rptdata={rptdata} />
+        return <TabPane tab={json.name} key={key} style={{ fontSize: "16px" }}>
+            <InfoItem rptdata={rptdata} />
+            <Chart rptdata={rptdata} />
+        </TabPane>
+    }
+    callback(key) {
+        console.log('onChange', key);
+    }
+    handleTabClick(key) {
+        console.log('onTabClick', key);
     }
     render() {
         return (
-            <div className="content">
+            <Tabs className="content" onChange={this.callback} onTabClick={this.handleTabClick} animated={false} destroyInactiveTabPane={true}>
                 {this.state.data.map((c, idx) => {
-                    return <Flex.Item key={idx} className="report-main-item">
-                        <h2 className="report-main-item-title">{c.name}</h2>
-                        <div className="report-main-item-body">
-                            {this.getCardRepot(c.data)}
-                        </div>
-                    </Flex.Item>
+                    return this.getCardRepot(idx, c)
                 })
                 }
-            </div>
+            </Tabs>
         )
     }
 }

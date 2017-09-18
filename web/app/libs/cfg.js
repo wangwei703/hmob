@@ -1,9 +1,9 @@
 const comm = [{
     key: "zgtjgjc-hcy",
-    name: "中铁国际城-和畅园"
+    name: "中铁和畅园"
 }, {
     key: "jy-dfds",
-    name: "佳源.东方都市"
+    name: "佳源都市"
 }, {
     key: "hrhy",
     name: "宏润花园"

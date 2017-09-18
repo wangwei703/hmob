@@ -1,25 +1,49 @@
 .content(@h) {
-    .content{
-            height:~"calc(100vh - @{h})";
-            overflow-y: auto;
-            .report-main-item {
-                margin: 10px 0;
-                background-color: rgba(0, 0, 0, .01);
-               height: 500px;
+    .content {
+        height:~"calc(100vh - @{h})";
+        overflow-y: auto;
+        &:extend(.flex-column);
+        .am-tabs-content {
+            flex: 1;
+            .am-tabs-tabpane {
                 &:extend(.flex-column);
-                .report-main-item-title {
-                    color: @title-color;
-                    font-size: 30px;
-                    padding-top: 10px;
-                    text-align: center;
+            }
+        }
+    }
+    .infopanel {
+        .infopanel-item {
+            margin: 20px;
+            height: 100px;
+            line-height: 100px;
+            display: grid;
+            grid-column-gap: 10px;
+            grid-template-columns: 160px 35px 2fr 35px 2fr;
+            // &:not(:last-child) {
+            //     margin-bottom: 40px;
+            // }
+            .icon {
+                color: @color3;
+                text-align: right;
+                padding-top: 15px;
+            }
+            .infopanel-item-column {
+                font-size: 36px;
+                color: @color3;
+                &.price {
+                    font-size: 44px;
+                    color: @blue;
                 }
-                .report-main-item-body {
-                    flex: 1;
-                    display: flex;
-                    .report-chart-content {
-                        flex: 1;
+                .rate {
+                    font-size: 24px;
+                    color: @green;
+                    &.down {
+                        color: @red;
                     }
                 }
             }
         }
     }
+    .chartpanel {
+        flex: 1;
+    }
+}

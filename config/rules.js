@@ -49,7 +49,14 @@ module.exports = function(src) {
             })
         }, {
             test: /\.(eot|woff|woff2|ttf|svg)/,
+            exclude:[path.resolve(src, 'app/svg')],
             use: ["url-loader?name=[name].[hash].[ext]&limit=1024"]
+        }, {
+            test: /\.(svg)$/i,
+            use: ['svg-sprite-loader'],
+            include: [
+                path.resolve(src, 'app/svg'),
+            ]
         }]
     };
 };
