@@ -12,17 +12,20 @@ class Report extends Component {
         data: []
     }
     componentDidMount() {
-        fetchData("home").then(json => {
+        fetchData("data").then(json => {
             let data = [];
             Community.forEach(c => {
-                let dayData = json.day.filter(d => d.c === c.key);
-                let monData = json.mon.filter(d => d.c === c.key);
+                let today = json.today.filter(d => d.c === c.key);
+                let thismon = json.thismonth.filter(d => d.c === c.key);
+                let everyday = json.everyday.filter(d => d.c === c.key);
                 data.push({
+                    date: json.date,
+                    source: json.source,
                     key: c.key,
                     name: c.name,
-                    day: dayData,
-                    mon: monData,
-                    source: json.source
+                    today,
+                    thismon,
+                    everyday
                 });
             })
             this.setState({
@@ -32,22 +35,34 @@ class Report extends Component {
     }
 
     getCardRepot(key, json) {
+
         let rptdata = Object.entries(json.source).map((s, idx) => {
             let sk = s[0], sn = s[1];
-            let dayData = json.day.find(d => d.s === sk),
-                monData = json.mon.find(d => d.s === sk),
+            let today = json.today.find(d => d.s === sk),
+                thismon = json.thismon.find(d => d.s === sk),
+                everyday = json.everyday.filter(d => d.s === sk).map(d=>{
+                    return {
+                        d:d.d,
+                        a:d.a,
+                        t:d.t
+                    }
+                }),
                 data = {
-                    name: sn
+                    name: sn,
+                    everyday: {
+                        date: json.date,
+                        data: everyday
+                    }
                 };
-            if (dayData)
+            if (today)
                 data.day = {
-                    v: dayData.a,
-                    p: dayData.p
+                    v: today.a,
+                    p: today.p
                 }
-            if (monData) {
+            if (thismon) {
                 data.mon = {
-                    v: monData.a,
-                    p: monData.p
+                    v: thismon.a,
+                    p: thismon.p
                 }
             }
             return data;

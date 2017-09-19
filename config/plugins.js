@@ -8,7 +8,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = (isProd, build) => {
     let plugins = [
         new CopyWebpackPlugin([{
-            from: path.resolve(__dirname, `../web/libs/data/*.json`),
+            from: path.resolve(__dirname, `../web/app/db/*.json`),
             to: path.resolve(build, './data/'),
             toType: "dir",
             flatten: true

@@ -1,14 +1,17 @@
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/line';
-import 'echarts/lib/chart/pie';
 
 import echarts from 'echarts/lib/echarts';
+
+// import 'echarts/lib/chart/pie';
+
+
 
 export default dom => echarts.init(dom);
 
 const chartColors = ['#944BE8', '#02D4BF', '#38b4ee', '#303f9f'];
 
-const subTitleColor = "#b1afba";
+const subTitleColor = "#ccc";
 const axisLabelColor = subTitleColor;
 const axisLineColor = subTitleColor;
 
@@ -22,16 +25,17 @@ let dispose = chart => {
 }
 let setOption = (chart, options) => {
     let newOptions = Object.assign({
+        backgroundColor: 'rgba(0,0,0,.1)',
         color: chartColors,//['#61DA00','#00CCFF','#afa9fe','#fe8080'],
         animation: false,
         grid: {
-            left: 20 * window.DPR,
-            right: 20 * window.DPR,
-            top: 20 * window.DPR,
+            left: 10 * window.DPR,
+            right: 10 * window.DPR,
+            top: 10 * window.DPR,
             bottom: 30 * window.DPR
         },
         textStyle: {
-            fontSize: 14 * window.DPR
+            fontSize: 12 * window.DPR
         }
     }, options)
     chart && chart.setOption(newOptions);
@@ -41,21 +45,23 @@ let getLineSeries = data => {
         data: data.data,
         name: data.name,
         type: 'line',
-        //smooth: true,
-        symbolSize: 12,
+        smooth: true,
+        symbolSize: 8 * window.DPR,
         label: {
             normal: {
                 show: true,
                 position: 'top',
-
+                rotate: 30,
+                color: subTitleColor,
+                offset:[10* window.DPR,-5* window.DPR]
             }
         },
         lineStyle: {
             normal: {
-                width: 3,
+                width: 3 * window.DPR,
                 shadowColor: 'rgba(0,0,0,.6)',
-                shadowBlur: 8,
-                shadowOffsetY: 5
+                shadowBlur: 8 * window.DPR,
+                shadowOffsetY: 5 * window.DPR
             }
         }
     }
@@ -65,53 +71,55 @@ let axis = {
         show: false
     },
     nameTextStyle: {
+        color: axisLabelColor,
         fontSize: 12 * window.DPR
     },
     axisLine: {
-        show: true,
-        lineStyle: {
-            color: axisLabelColor,
-            opacity: 0.4
-        }
+        show: false
+    },
+    axisLabel: {
+        show: false
     },
     axisTick: {
-        alignWithLabel: true
+        show: false
     }
 }
 let yAxis = data => {
-    return {
-        name: data.name,
+    return Object.assign({}, axis, {
+        //name: data.name,
         type: 'value',
         scale: true,
-        axisTick: { show: false },
+        nameLocation: 'end',
+        nameGap: 20,
         splitLine: { //网格线
-            show: false
-        }
-    };
-}
-let xAxis = data => {
-    let len = data.length - 1;
-    let interval = (idx) => {
-        if (len < 4)
-            return true;
-        let x = [0, len,Math.round(len*.25),Math.round(len*.5),Math.round(len*.75)];
-        return x.includes(idx);
-    }
-    return Object.assign({}, axis, {
-        data,
-        axisLabel: {
-            interval,
-            rotate: 45,
-            show: true,
-            splitNumber: 5,
-            textStyle: {
-                color: axisLineColor
-            },
-            fontSize: 10 * window.DPR
-        },
-        splitLine: { //网格线
-            show: false
+            show: false,
+            lineStyle: {
+                color: 'rgba(200,200,200,.1)',
+                type: 'dashed'
+            }
         }
     });
 }
-export { setOption, dispose, getLineSeries, xAxis, yAxis ,chartColors};
+let xAxis = data => {
+    return Object.assign({}, axis, {
+        data,
+        axisLine: {
+            show: true,
+            lineStyle: {
+                color: axisLabelColor,
+                opacity: 0.8,
+                width: 1 * window.DPR
+            }
+        },
+        axisLabel: {
+            show: true,
+            rotate :45,
+            margin:20,
+            textStyle: {
+                color:subTitleColor,
+                fontSize: 10 * window.DPR
+            }
+        }
+    });
+}
+export { setOption, dispose, getLineSeries, xAxis, yAxis, chartColors };

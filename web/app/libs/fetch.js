@@ -1,7 +1,7 @@
 import Storage from './storage';
 
 function fillFilePath(filename, cache) {
-    let path = `https://wangwei703.github.io/house/build/data/${filename}.json`;
+    let path = `./data/${filename}.json`;
     if (!cache) {
         path = path + `?_dc=${new Date().getTime()}`;
     }

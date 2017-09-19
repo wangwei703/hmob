@@ -1,74 +1,9 @@
 import React, { Component } from 'react';
-import echart, { dispose, setOption } from 'app/libs/echarts';
+import echart, { dispose, getLineSeries, setOption, xAxis, yAxis } from 'app/libs/echarts';
 
 import PropTypes from 'prop-types';
 
-class Chart extends Component {
-    formatSeries(data) {
-        let series = [];
-        if (Array.isArray(data)) {
-            data = data.filter(_data => _data.day.v);
-            series = data.map((_data, _idx) => {
-                let day = _data.day,
-                    val = day.v,
-                    p = day.p ? Math.floor(day.p * 10000) / 100 : null,
-                    v = val ? Math.min(100, Math.floor(val / 200)) : 0;
-                let mon = _data.mon,
-                    monval = mon.v || 0,
-                    monp = mon.p ? Math.floor(mon.p * 10000) / 100 : null,
-                    monv = monval ? Math.min(100, Math.floor(val / 200)) : 0;
-                return {
-                    type: 'pie',
-                    name: _data.name,
-                    clockWise: true, //顺时加载
-                    hoverAnimation: false, //鼠标移入变大
-                    radius: _idx ? ['55%', '60%'] : ['65%', '70%'],
-                    center: ['50%', '50%'],
-                    data: [{
-                        value: v
-                    }, {
-                        value: 100 - v,
-                        name: 'invisible',
-                        itemStyle: {
-                            normal: {
-                                color: 'rgba(255,255,255,.1)',//未完成的圆环的颜色
-                                label: {
-                                    show: false
-                                },
-                                labelLine: {
-                                    show: false
-                                }
-                            }
-                        }
-                    }],
-                    label: {
-                        normal: {
-                            show: false
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            shadowBlur: 100,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
-                        }
-                    },
-                    labelLine: {
-                        normal: {
-                            show: false
-                        }
-                    }
-                };
-            })
-        }
-        return series;
-    }
-    renderChart() {
-        let rptData = this.props.rptdata;
-        let series = this.formatSeries(rptData);
-        setOption(this.myChart, {
-            series
-        })
-    }
+class componentName extends Component {
     componentDidUpdate() {
         this.renderChart();
     }
@@ -76,8 +11,81 @@ class Chart extends Component {
         this.myChart = echart(this.refs.chart);
         this.renderChart();
     }
-    componentWillUnmount() {
-        dispose(this.myChart);
+    renderChart() {
+        let { rptdata } = this.props;
+        let { x, s } = this.formatOption(rptdata);
+        let series = s.map(getLineSeries);
+        series.push({
+            name: '降雨量',
+            type: 'line',
+            xAxisIndex: 1,
+            yAxisIndex: 1,
+            symbolSize: 8,
+            hoverAnimation: false,
+            data: [
+                0.005, 0.026, 0.038, 0.038, 0.038, 0.076, 0.086, 0.109, 0.213, 0.276, 0.288, 0.297
+            ]
+        });
+        console.log(x, s);
+        setOption(this.myChart, {
+            xAxis: [xAxis(x), {
+                gridIndex: 1,
+                type: 'category',
+                boundaryGap: false,
+                axisLine: { onZero: true },
+                data: x,
+                position: 'top'
+            }],
+            grid: [{
+                left: 0,
+                right: 0,
+                height: '35%'
+            }, {
+                left: 50,
+                right: 50,
+                top: '55%',
+                height: '35%'
+            }],
+            yAxis: [yAxis({
+                name: "均价/万",
+                axisLabel: {
+                    formatter: '{value} ￥'
+                }
+            }), {
+                gridIndex: 1,
+                name: '降雨量(mm)',
+                type: 'value',
+                inverse: true
+            }],
+            series
+        })
+    }
+    formatOption(list) {
+        let x = [], s = [];
+        if (Array.isArray(list) && list.length > 0) {
+            x = list[0].everyday.date;
+            list.forEach(_item => {
+                let item = _item.everyday.data;
+                let avgs = [], qua = [];
+                x.forEach(_x => {
+                    let h = item.find(_h => _h.d === _x);
+                    if (h) {
+                        avgs.push(Math.round(h.a / 10) / 1000);
+                        qua.push(h.t);
+                    } else {
+                        avgs.push(null);
+                        qua.push(null);
+                    }
+                });
+                s.push({
+                    name: _item.name,
+                    data: avgs
+                });
+            });
+
+            x = x.map(d => d.replace("2017-", ""))
+        }
+        return { x, s };
     }
     render() {
         return (
@@ -86,8 +94,8 @@ class Chart extends Component {
     }
 }
 
-Chart.propTypes = {
+componentName.propTypes = {
     rptdata: PropTypes.array
-};
+}
 
-export default Chart;
+export default componentName
