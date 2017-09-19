@@ -1,20 +1,45 @@
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/line';
+import 'echarts/lib/component/markpoint';
 
 import echarts from 'echarts/lib/echarts';
 
 // import 'echarts/lib/chart/pie';
 
 
-const Graphic=echarts.graphic;
+const Graphic = echarts.graphic;
 export default dom => echarts.init(dom);
+const chartColors = ['#944BE8', '#02D4BF', '#38b4ee', '#303f9f'];
 
-const chartColors = ['#FFFFFF','#F53B00','#944BE8', '#02D4BF', '#38b4ee', '#303f9f'];
+const markColor = "#ddd";
+const labelColor = "#aaa";
 
-const subTitleColor = "#ccc";
-const axisLabelColor = subTitleColor;
-const axisLineColor = subTitleColor;
-
+let markPoint=()=>({
+    data: [{
+        type: 'max',
+        symbolSize: 60 * window.DPR
+    }, {
+        type: 'min',
+        symbolSize: 60* window.DPR
+    }],
+    itemStyle: {
+        normal: {
+            label: {
+                show: true,
+                color: markColor,
+                formatter: function (data) {
+                    var data = (data.value || 0).toString(), result = '';
+                    while (data.length > 3) {
+                        result = ',' + data.slice(-3) + result;
+                        data = data.slice(0, data.length - 3);
+                    }
+                    if (data) { result = data + result; }
+                    return result;
+                },
+            }
+        }
+    }
+});
 let dispose = chart => {
     if (chart) {
         chart.clear();
@@ -46,14 +71,15 @@ let getLineSeries = data => {
         name: data.name,
         type: 'line',
         smooth: true,
-        symbolSize: 8 * window.DPR,
+        symbolSize: 5 * window.DPR,
         label: {
             normal: {
-                show: true,
+                show: false,
                 position: 'top',
-                color: subTitleColor
+                color: labelColor
             }
         },
+        markPoint:markPoint(),
         lineStyle: {
             normal: {
                 width: 3 * window.DPR,
@@ -64,34 +90,34 @@ let getLineSeries = data => {
         }
     }
 }
-let getBarSeries=opts=>{
-    return Object.assign({},{
+let getBarSeries = opts => {
+    return Object.assign({}, {
         type: 'bar',
-        barWidth: 6* window.DPR,
-        barGap: 1* window.DPR, //柱间距离
-        barMinHeight :5* window.DPR,
+        barWidth: 3 * window.DPR,
+        barMinHeight: 3 * window.DPR,
+        markPoint:markPoint(),
         label: {
             normal: {
-                show: true,
-                rotate :45,
-                position: 'bottom',
-                color: subTitleColor
+                show: false,
+                rotate: 45,
+                position: 'top',
+                color: labelColor
             }
         },
         itemStyle: {
             normal: {
-                barBorderRadius: [0, 0,2, 2],
+                barBorderRadius: [0, 0, 2, 2],
                 opacity: .8
             }
         }
-    },opts);
+    }, opts);
 }
 let axis = {
     splitLine: { //网格线
         show: false
     },
     nameTextStyle: {
-        color: axisLabelColor,
+        color: labelColor,
         fontSize: 12 * window.DPR
     },
     axisLine: {
@@ -117,27 +143,32 @@ let yAxis = opts => {
                 type: 'dashed'
             }
         }
-    },opts);
+    }, opts);
 }
 let xAxis = opts => {
     return Object.assign({}, axis, {
         axisLabel: {
             show: true,
-            margin:10* window.DPR,
+            margin: 10 * window.DPR,
+            rotate: 1,
+            align: 'center',
+            formatter(v, i) {
+                return v.substr(5);
+            },
             textStyle: {
-                color:subTitleColor,
+                color: labelColor,
                 fontSize: 12 * window.DPR
             }
         }
-    },opts);
+    }, opts);
 }
-export { 
-    setOption, 
-    dispose, 
+export {
+    setOption,
+    dispose,
     getLineSeries,
-    getBarSeries, 
-    xAxis, 
-    yAxis, 
+    getBarSeries,
+    xAxis,
+    yAxis,
     chartColors,
-    Graphic 
+    Graphic
 };

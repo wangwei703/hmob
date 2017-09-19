@@ -49,28 +49,25 @@ class componentName extends Component {
         setOption(this.myChart, {
             xAxis: [xAxis({ data: x }), xAxis({
                 gridIndex: 1,
-                data: x,
-                position: 'top',
-                axisLabel: {
-                    show: false
-                }
+                data: x
             })],
             grid: [{
                 top: 0,
                 left: 10 * window.DPR,
                 right: 10 * window.DPR,
-                height: '47%'
+                bottom: '5%',
+                height: '45%'
             }, {
-                left: 10 * window.DPR,
+                top: '50%',
+                left: 15 * window.DPR,
                 right: 10 * window.DPR,
-                bottom:0,
-                top: '53%',
-                height: '47%'
+                bottom: '5%',
+                height: '45%'
             }],
             yAxis: [yAxis(), yAxis({
                 gridIndex: 1,
                 type: 'value',
-                inverse: true
+                inverse: false
             })],
             series
         })
@@ -103,12 +100,12 @@ class componentName extends Component {
                     xAxisIndex: 1,
                     yAxisIndex: 1,
                     stack:"qua",
-                    data: qua,
-                    z:10-z
+                    data: qua
                 })
             });
 
-            x = x.map(d => d.replace("2017-", ""))
+            //x = x.map(d => d.replace("2017-", ""));
+            //console.log(x);
         }
         maxAvg = Math.ceil(maxAvg / 1000) * 1000;
         maxQua = Math.ceil(maxQua / 100) * 100;

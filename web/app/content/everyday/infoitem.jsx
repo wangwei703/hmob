@@ -1,14 +1,17 @@
+import { Icon, Switch } from 'antd-mobile';
 import React, { Component, PropTypes } from 'react'
 
-import {chartColors} from 'app/libs/echarts';
+import { chartColors } from 'app/libs/echarts';
+import monthSvg from 'app/svg/month.svg';
+import todaySvg from 'app/svg/today.svg';
 
 class componentName extends Component {
     format(data) {
         let v = "--", p = "--", p_cls = "";
         if (typeof data.v === "number") {
             v = `${data.v}￥`;
-        }else{
-            p=""
+        } else {
+            p = ""
         }
         if (typeof data.p === "number") {
             p_cls = data.p < 0 ? "down" : "";
@@ -17,13 +20,22 @@ class componentName extends Component {
         return [v, p, p_cls];
     }
     renderContent(arr) {
-        let content = [];
+        let content = [
+            <div key={-1} className="infopanel-item-head">
+                <div></div>
+                <div className="infopanel-item-column">
+                    <Icon type={todaySvg} size="xs" />
+                </div>
+                <div className="infopanel-item-column">
+                    <Icon type={monthSvg} size="xs" />
+                </div>
+            </div>];
         if (Array.isArray(arr)) {
-            content = arr.map((item, _idx) => {
+            arr.forEach((item, _idx) => {
                 let [dv, dp, dp_cls] = this.format(item.day);
                 let [mv, mp, mp_cls] = this.format(item.mon);
-                return <div key={_idx} className="infopanel-item" style={{color:chartColors[_idx]}}>
-                    <div className="infopanel-item-column">
+                content.push(<div key={_idx} className="infopanel-item" style={{ color: chartColors[_idx] }}>
+                    <div className="infopanel-item-column" style={{ textAlign: 'left' }}>
                         {item.name}
                     </div>
                     <div className="infopanel-item-column price">
@@ -38,7 +50,7 @@ class componentName extends Component {
                             {mp}
                         </span>
                     </div>
-                </div>
+                </div>);
             });
         }
         return content;

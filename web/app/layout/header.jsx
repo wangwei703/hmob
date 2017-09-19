@@ -4,13 +4,13 @@ import { Flex } from 'antd-mobile';
 import { Icon } from 'antd-mobile';
 import { NavLink } from "react-router-dom";
 import barSvg from 'app/svg/bar.svg';
+import daySvg from 'app/svg/day.svg';
 import lineSvg from 'app/svg/line.svg';
-import todaySvg from 'app/svg/today.svg';
 
 const LINKS = [{
     key: "everyday",
     name: "每日行情",
-    icon:todaySvg
+    icon:daySvg
 },{
     key: "montrend",
     name: "月度走势",
