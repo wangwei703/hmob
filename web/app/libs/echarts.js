@@ -14,13 +14,19 @@ const chartColors = ['#944BE8', '#02D4BF', '#38b4ee', '#303f9f'];
 const markColor = "#ddd";
 const labelColor = "#aaa";
 
-let markPoint=()=>({
+let markPoint = () => ({
     data: [{
         type: 'max',
-        symbolSize: 60 * window.DPR
+        symbolSize: 60 * window.DPR,
+        symbolRotate: 180,
+        label: {
+            normal: {
+                offset: [0, 10 * window.DPR]
+            }
+        }
     }, {
         type: 'min',
-        symbolSize: 60* window.DPR
+        symbolSize: 60 * window.DPR
     }],
     itemStyle: {
         normal: {
@@ -79,7 +85,7 @@ let getLineSeries = data => {
                 color: labelColor
             }
         },
-        markPoint:markPoint(),
+        markPoint: markPoint(),
         lineStyle: {
             normal: {
                 width: 3 * window.DPR,
@@ -95,7 +101,7 @@ let getBarSeries = opts => {
         type: 'bar',
         barWidth: 3 * window.DPR,
         barMinHeight: 3 * window.DPR,
-        markPoint:markPoint(),
+        markPoint: markPoint(),
         label: {
             normal: {
                 show: false,
