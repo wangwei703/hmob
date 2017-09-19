@@ -5,6 +5,9 @@
         .am-tabs-content {
             flex: 1;
             overflow-y: auto;
+            .am-tabs-tabpane {
+                &:extend(.flex-column);
+            }
             .am-tabs-tabpane-active {
                 min-height: 100%;
             }
@@ -32,6 +35,7 @@
         }
     }
     .chartpanel {
-        min-height: 1200px;
+        flex: 1;
+        min-height: 950px;
     }
 }

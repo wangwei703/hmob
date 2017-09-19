@@ -8,21 +8,13 @@ import lineSvg from 'app/svg/line.svg';
 import todaySvg from 'app/svg/today.svg';
 
 const LINKS = [{
-    key: "home",
-    name: "今日房价",
+    key: "everyday",
+    name: "每日行情",
     icon:todaySvg
-}, {
-    key: "avgprice",
-    name: "日走势",
+},{
+    key: "montrend",
+    name: "月度走势",
     icon:lineSvg
-}, {
-    key: "avgpricemon",
-    name: "月走势",
-    icon:lineSvg
-}, {
-    key: "quantity",
-    name: "房源数",
-    icon:barSvg
 }]
 class componentName extends Component {
     render() {

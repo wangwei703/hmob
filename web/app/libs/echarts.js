@@ -6,10 +6,10 @@ import echarts from 'echarts/lib/echarts';
 // import 'echarts/lib/chart/pie';
 
 
-
+const Graphic=echarts.graphic;
 export default dom => echarts.init(dom);
 
-const chartColors = ['#944BE8', '#02D4BF', '#38b4ee', '#303f9f'];
+const chartColors = ['#FFFFFF','#F53B00','#944BE8', '#02D4BF', '#38b4ee', '#303f9f'];
 
 const subTitleColor = "#ccc";
 const axisLabelColor = subTitleColor;
@@ -25,7 +25,7 @@ let dispose = chart => {
 }
 let setOption = (chart, options) => {
     let newOptions = Object.assign({
-        backgroundColor: 'rgba(0,0,0,.1)',
+        //backgroundColor: 'rgba(0,0,0,.1)',
         color: chartColors,//['#61DA00','#00CCFF','#afa9fe','#fe8080'],
         animation: false,
         grid: {
@@ -51,9 +51,7 @@ let getLineSeries = data => {
             normal: {
                 show: true,
                 position: 'top',
-                rotate: 30,
-                color: subTitleColor,
-                offset:[10* window.DPR,-5* window.DPR]
+                color: subTitleColor
             }
         },
         lineStyle: {
@@ -65,6 +63,28 @@ let getLineSeries = data => {
             }
         }
     }
+}
+let getBarSeries=opts=>{
+    return Object.assign({},{
+        type: 'bar',
+        barWidth: 6* window.DPR,
+        barGap: 1* window.DPR, //柱间距离
+        barMinHeight :5* window.DPR,
+        label: {
+            normal: {
+                show: true,
+                rotate :45,
+                position: 'bottom',
+                color: subTitleColor
+            }
+        },
+        itemStyle: {
+            normal: {
+                barBorderRadius: [0, 0,2, 2],
+                opacity: .8
+            }
+        }
+    },opts);
 }
 let axis = {
     splitLine: { //网格线
@@ -84,9 +104,8 @@ let axis = {
         show: false
     }
 }
-let yAxis = data => {
+let yAxis = opts => {
     return Object.assign({}, axis, {
-        //name: data.name,
         type: 'value',
         scale: true,
         nameLocation: 'end',
@@ -98,28 +117,27 @@ let yAxis = data => {
                 type: 'dashed'
             }
         }
-    });
+    },opts);
 }
-let xAxis = data => {
+let xAxis = opts => {
     return Object.assign({}, axis, {
-        data,
-        axisLine: {
-            show: true,
-            lineStyle: {
-                color: axisLabelColor,
-                opacity: 0.8,
-                width: 1 * window.DPR
-            }
-        },
         axisLabel: {
             show: true,
-            rotate :45,
-            margin:20,
+            margin:10* window.DPR,
             textStyle: {
                 color:subTitleColor,
-                fontSize: 10 * window.DPR
+                fontSize: 12 * window.DPR
             }
         }
-    });
+    },opts);
 }
-export { setOption, dispose, getLineSeries, xAxis, yAxis, chartColors };
+export { 
+    setOption, 
+    dispose, 
+    getLineSeries,
+    getBarSeries, 
+    xAxis, 
+    yAxis, 
+    chartColors,
+    Graphic 
+};
