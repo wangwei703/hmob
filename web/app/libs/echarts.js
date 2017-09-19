@@ -9,43 +9,47 @@ import echarts from 'echarts/lib/echarts';
 
 const Graphic = echarts.graphic;
 export default dom => echarts.init(dom);
-const chartColors = ['#944BE8', '#02D4BF', '#38b4ee', '#303f9f'];
+const chartColors = ['#944BE8', '#2eb1c2', '#38b4ee', '#303f9f'];
 
 const markColor = "#ddd";
 const labelColor = "#aaa";
 
-let markPoint = () => ({
-    data: [{
-        type: 'max',
-        symbolSize: 60 * window.DPR,
-        symbolRotate: 180,
-        label: {
-            normal: {
-                offset: [0, 10 * window.DPR]
-            }
-        }
-    }, {
-        type: 'min',
+let markPoint = rotate => {
+    let mark = {
         symbolSize: 60 * window.DPR
-    }],
-    itemStyle: {
-        normal: {
+    };
+    let max = Object.assign({type:"max"}, mark), min = Object.assign({type:"min"}, mark);
+    if (rotate) {
+        max = Object.assign({
+            symbolRotate: 180,
             label: {
-                show: true,
-                color: markColor,
-                formatter: function (data) {
-                    var data = (data.value || 0).toString(), result = '';
-                    while (data.length > 3) {
-                        result = ',' + data.slice(-3) + result;
-                        data = data.slice(0, data.length - 3);
-                    }
-                    if (data) { result = data + result; }
-                    return result;
-                },
+                normal: {
+                    offset: [0, 10 * window.DPR]
+                }
+            }
+        }, max);
+    }
+    return {
+        data: [max,min],
+        itemStyle: {
+            normal: {
+                label: {
+                    show: true,
+                    color: markColor,
+                    formatter: function (data) {
+                        var data = (data.value || 0).toString(), result = '';
+                        while (data.length > 3) {
+                            result = ',' + data.slice(-3) + result;
+                            data = data.slice(0, data.length - 3);
+                        }
+                        if (data) { result = data + result; }
+                        return result;
+                    },
+                }
             }
         }
     }
-});
+};
 let dispose = chart => {
     if (chart) {
         chart.clear();
@@ -85,7 +89,7 @@ let getLineSeries = data => {
                 color: labelColor
             }
         },
-        markPoint: markPoint(),
+        markPoint: markPoint(true),
         lineStyle: {
             normal: {
                 width: 3 * window.DPR,
