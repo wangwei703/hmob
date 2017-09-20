@@ -1,6 +1,6 @@
 .header(@h) {
     .navbar {
-        background-color: rgba(0, 0, 0, .1);
+        background-color: @bottom-navbar-bg;
         font-size: 24px;
         .navbar-item {
             flex: 1;
@@ -13,7 +13,7 @@
                 user-select: none;
                 &.active {
                     // color:@primary-color;
-                    background-color: @bg;//rgba(0, 0, 0, 0.2);
+                    background-color: @bottom-navbar-active-bg;//rgba(0, 0, 0, 0.2);
                 }
                 .header-item-icon {
                     height: @h/2;

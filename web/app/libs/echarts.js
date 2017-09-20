@@ -16,11 +16,11 @@ import echarts from 'echarts/lib/echarts';
 
 const Graphic = echarts.graphic;
 export default dom => echarts.init(dom);
-const chartColors = ['#38b4ee', '#ccc'];//'#999', '#111',
+const chartColors = ['#3bafdA', '#ccc']; //'#999', '#111',
 
 const markColor = "#ddd";
 const labelColor = "#aaa";
-const axisLineColor="#383838";
+const axisLineColor = "#383838";
 
 
 let dispose = chart => {
@@ -51,7 +51,7 @@ let setOption = (chart, options) => {
 let getLineSeries = opts => {
     return Object.assign({
         type: 'line',
-        showSymbol :false,
+        showSymbol: false,
         label: {
             normal: {
                 show: false,
@@ -59,13 +59,13 @@ let getLineSeries = opts => {
         },
         lineStyle: {
             normal: {
-                width: 2* window.DPR,
+                width: 2 * window.DPR,
                 shadowColor: 'rgba(0,0,0,.6)',
-                shadowBlur: 8* window.DPR,
-                shadowOffsetY: 5* window.DPR
+                shadowBlur: 8 * window.DPR,
+                shadowOffsetY: 5 * window.DPR
             }
         },
-    },opts)
+    }, opts)
 }
 let getBarSeries = opts => {
     return Object.assign({}, {
@@ -97,9 +97,9 @@ let axis = {
         fontSize: 12 * window.DPR
     },
     axisLine: {
-        show:false,
-        lineStyle:{
-            color:axisLineColor
+        show: false,
+        lineStyle: {
+            color: axisLineColor
         }
     },
     axisLabel: {
