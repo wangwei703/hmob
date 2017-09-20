@@ -16,17 +16,19 @@ body,
 .main {
     &:extend(.fullscreen);
     .layout {
-        .header(@header-height);
-        .content(@header-height);
+        &:extend(.flex-column);
+        .header(@bottom-navbar-height);
+        .content(@bottom-navbar-height);
     }
 }
 
 body {
     color: @color;
     background-color: @bg!important;
-    background: -webkit-linear-gradient(top, @bg, @bg2);
+    // background: -webkit-linear-gradient(top, @bg, @bg2);
     // background: -moz-linear-gradient(top, @bg, @bg2);
     background-repeat: no-repeat;
     background-position: left top;
     background-size: cover;
+    
 }

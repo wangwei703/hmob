@@ -9,7 +9,7 @@ class Content extends Component {
         return (
             <Switch>
                 <Route exact path="/everyday" component={EveryDay} />
-                <Route exact path="/montrend" component={MonTrend} />
+                <Route exact path="/montrend"  component={MonTrend} />
                 <Redirect from='/' to='/everyday' />
             </Switch>
         )

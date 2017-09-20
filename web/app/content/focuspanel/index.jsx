@@ -1,6 +1,6 @@
-import { Icon, Switch } from 'antd-mobile';
 import React, { Component, PropTypes } from 'react'
 
+import { Icon } from 'antd-mobile';
 import { chartColors } from 'app/libs/echarts';
 import monthSvg from 'app/svg/month.svg';
 import todaySvg from 'app/svg/today.svg';

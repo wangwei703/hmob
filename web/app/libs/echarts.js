@@ -1,55 +1,28 @@
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/line';
-import 'echarts/lib/component/markpoint';
 
 import echarts from 'echarts/lib/echarts';
+
+// import 'echarts/lib/chart/scatter';
+
+
+
+
+
+
 
 // import 'echarts/lib/chart/pie';
 
 
 const Graphic = echarts.graphic;
 export default dom => echarts.init(dom);
-const chartColors = ['#944BE8', '#2eb1c2', '#38b4ee', '#303f9f'];
+const chartColors = ['#38b4ee', '#ccc'];//'#999', '#111',
 
 const markColor = "#ddd";
 const labelColor = "#aaa";
+const axisLineColor="#383838";
 
-let markPoint = rotate => {
-    let mark = {
-        symbolSize: 60 * window.DPR
-    };
-    let max = Object.assign({type:"max"}, mark), min = Object.assign({type:"min"}, mark);
-    if (rotate) {
-        max = Object.assign({
-            symbolRotate: 180,
-            label: {
-                normal: {
-                    offset: [0, 10 * window.DPR]
-                }
-            }
-        }, max);
-    }
-    return {
-        data: [max,min],
-        itemStyle: {
-            normal: {
-                label: {
-                    show: true,
-                    color: markColor,
-                    formatter: function (data) {
-                        var data = (data.value || 0).toString(), result = '';
-                        while (data.length > 3) {
-                            result = ',' + data.slice(-3) + result;
-                            data = data.slice(0, data.length - 3);
-                        }
-                        if (data) { result = data + result; }
-                        return result;
-                    },
-                }
-            }
-        }
-    }
-};
+
 let dispose = chart => {
     if (chart) {
         chart.clear();
@@ -60,8 +33,8 @@ let dispose = chart => {
 }
 let setOption = (chart, options) => {
     let newOptions = Object.assign({
-        //backgroundColor: 'rgba(0,0,0,.1)',
-        color: chartColors,//['#61DA00','#00CCFF','#afa9fe','#fe8080'],
+        // backgroundColor: '#3D3B43',
+        color: chartColors,
         animation: false,
         grid: {
             left: 10 * window.DPR,
@@ -75,37 +48,30 @@ let setOption = (chart, options) => {
     }, options)
     chart && chart.setOption(newOptions);
 }
-let getLineSeries = data => {
-    return {
-        data: data.data,
-        name: data.name,
+let getLineSeries = opts => {
+    return Object.assign({
         type: 'line',
-        smooth: true,
-        symbolSize: 5 * window.DPR,
+        showSymbol :false,
         label: {
             normal: {
                 show: false,
-                position: 'top',
-                color: labelColor
             }
         },
-        markPoint: markPoint(true),
         lineStyle: {
             normal: {
-                width: 3 * window.DPR,
+                width: 2* window.DPR,
                 shadowColor: 'rgba(0,0,0,.6)',
-                shadowBlur: 8 * window.DPR,
-                shadowOffsetY: 5 * window.DPR
+                shadowBlur: 8* window.DPR,
+                shadowOffsetY: 5* window.DPR
             }
-        }
-    }
+        },
+    },opts)
 }
 let getBarSeries = opts => {
     return Object.assign({}, {
         type: 'bar',
         barWidth: 3 * window.DPR,
         barMinHeight: 3 * window.DPR,
-        markPoint: markPoint(),
         label: {
             normal: {
                 show: false,
@@ -131,7 +97,10 @@ let axis = {
         fontSize: 12 * window.DPR
     },
     axisLine: {
-        show: false
+        show:false,
+        lineStyle:{
+            color:axisLineColor
+        }
     },
     axisLabel: {
         show: false
@@ -158,17 +127,13 @@ let yAxis = opts => {
 let xAxis = opts => {
     return Object.assign({}, axis, {
         axisLabel: {
-            show: true,
-            margin: 10 * window.DPR,
+            margin: 15 * window.DPR,
             rotate: 1,
             align: 'center',
-            formatter(v, i) {
-                return v.substr(5);
-            },
             textStyle: {
                 color: labelColor,
                 fontSize: 12 * window.DPR
-            }
+            },
         }
     }, opts);
 }
@@ -179,6 +144,5 @@ export {
     getBarSeries,
     xAxis,
     yAxis,
-    chartColors,
-    Graphic
+    chartColors
 };

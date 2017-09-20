@@ -2,7 +2,9 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const pxtorem = require("postcss-pxtorem");
 const path = require("path");
 
-module.exports = function(src) {
+module.exports = function (src) {
+    let svgPath=[require.resolve('antd-mobile').replace(/warn\.js$/, ''),path.resolve(src, 'app/svg')];
+
     return {
         rules: [{
             test: /\.(js|jsx)$/,
@@ -49,14 +51,12 @@ module.exports = function(src) {
             })
         }, {
             test: /\.(eot|woff|woff2|ttf|svg)/,
-            exclude:[path.resolve(src, 'app/svg')],
+            exclude:svgPath,
             use: ["url-loader?name=[name].[hash].[ext]&limit=1024"]
         }, {
             test: /\.(svg)$/i,
             use: ['svg-sprite-loader'],
-            include: [
-                path.resolve(src, 'app/svg'),
-            ]
+            include: svgPath
         }]
     };
 };
