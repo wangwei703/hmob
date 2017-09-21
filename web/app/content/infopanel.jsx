@@ -7,6 +7,7 @@ import monthSvg from 'svg/month.svg';
 import todaySvg from 'svg/today.svg';
 
 class componentName extends Component {
+    
     format(data) {
         if (data) {
             let v = "--", p = "--", p_cls = "";
@@ -16,56 +17,61 @@ class componentName extends Component {
                 p = ""
             }
             if (typeof data.p === "number") {
-                p_cls = data.p < 0 ? "down" : "";
-                p = `${data.p}%`;
+                p=data.p;
+                if (p < 0) {
+                    p_cls = "down";
+                } else {
+                    p = "+" + p;
+                }
+                p = `${p}%`;
             }
             return [v, p, p_cls];
         } else {
             return ["", "", ""];
         }
     }
-    formatTrend(data){
-        if(data&&Array.isArray(data.slr)&&data.slr.length===2){
-            let slr=data.slr[1];
-            if(typeof slr==="number"){
-                slr=Math.round(slr*100)/100
-                let cls ="",val=slr;
-                if(slr<0){
-                    cls="down";
-                }else{
-                    val="+"+slr;
+    formatTrend(data) {
+        if (data && Array.isArray(data.slr) && data.slr.length === 2) {
+            let slr = data.slr[1];
+            if (typeof slr === "number") {
+                slr = Math.round(slr * 100) / 100
+                let cls = "", val = slr;
+                if (slr < 0) {
+                    cls = "down";
+                } else {
+                    val = "+" + slr;
                 }
-                return [val,cls];
+                return [val, cls];
             }
         }
-        return ["",""];
+        return ["", ""];
     }
     renderContent(idx) {
         let { rptdata } = this.props;
         console.log(rptdata);
         let color = chartColors[idx],
             source = rptdata.source[idx],
-            trend=rptdata.trend.find(d => d.s === source.k),
+            trend = rptdata.trend.find(d => d.s === source.k),
             today = rptdata.today.data.find(d => d.s === source.k),
             thismon = rptdata.thismon.data.find(d => d.s === source.k);
         let [dv, dp, dp_cls] = this.format(today);
         let [mv, mp, mp_cls] = this.format(thismon);
-        let [tv,tv_cls]=this.formatTrend(trend)
+        let [tv, tv_cls] = this.formatTrend(trend)
         let content = [
-            <div key={idx+"-1"} className="infopanel-cell infopanel-title" style={{ color }}>{source.n}</div>,
-            <div key={idx+"-2"} className="infopanel-cell price">
+            <div key={idx + "-1"} className="infopanel-cell infopanel-title" style={{ color }}>{source.n}</div>,
+            <div key={idx + "-2"} className="infopanel-cell price">
                 {dv}
                 <span className={"rate " + dp_cls}>
                     {dp}
                 </span>
             </div>,
-            <div key={idx+"-3"} className="infopanel-cell price">
+            <div key={idx + "-3"} className="infopanel-cell price">
                 {mv}
                 <span className={"rate " + mp_cls}>
                     {mp}
                 </span>
             </div>,
-            <div key={idx+"-4"} className={"infopanel-cell price "+tv_cls}>
+            <div key={idx + "-4"} className={"infopanel-cell price " + tv_cls}>
                 {tv}
             </div>
         ];

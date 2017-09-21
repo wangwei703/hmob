@@ -11,14 +11,15 @@ class Report extends Component {
     }
     componentWillReceiveProps(nextProps) {
         this.setState({
-            data: nextProps.rptdata
+            data: nextProps.rptdata,
+            name:nextProps.name
         })
     }
     render() {
         let data = this.state.data;
-        console.log(data);
         return (
             <div className="content">
+                <h3 className="title">{data.name}</h3>
                 <InfoPanel rptdata={{ source: data.source, today: data.today, thismon: data.thismon,trend:data.trend }} />
                 <TrendChart rptdata={{ trend: data.trend }} />
                 <QuaChart rptdata={{ date: data.date, everyday: data.trend }} />

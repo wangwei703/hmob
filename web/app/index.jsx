@@ -24,7 +24,7 @@ export default class App extends Component {
       });
     });
   }
-  onNavBarChange = data => {
+  onNavBarChange = (data,name) => {
     if (data) {
       this.setState({
         data
@@ -39,7 +39,7 @@ export default class App extends Component {
         </div>
         :
         <Flex direction="column" justify="stretch" align="stretch" className="layout">
-          <Content rptdata={this.state.data} />
+          <Content rptdata={this.state.data}/>
           <Nav activeIndex={0} rptdata={this.state.list} onChange={this.onNavBarChange} />
         </Flex>
     );

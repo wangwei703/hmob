@@ -7,19 +7,19 @@ class componentName extends Component {
         data: this.props.rptdata,
         activeIndex: 0
     }
-    onItemClick = (idx) => {
+    onItemClick = (idx,name) => {
         if (this.state.activeIndex === idx) return;
         this.setState({
             activeIndex: idx
         });
-        this.props.onChange&&this.props.onChange(this.state.data[idx]);
+        this.props.onChange&&this.props.onChange(this.state.data[idx],name);
     }
     render() {
         console.log("render nav");
         return (
             <Flex justify="stretch" align="stretch" className="navbar">
                 {
-                    this.state.data.map((c, idx) => <Flex.Item key={idx} className={"navbar-item " + (this.state.activeIndex === idx ? "navbar-item-active" : "")} onClick={() => this.onItemClick(idx)}>{c.name}</Flex.Item>)
+                    this.state.data.map((c, idx) => <Flex.Item key={idx} className={"navbar-item " + (this.state.activeIndex === idx ? "navbar-item-active" : "")} onClick={() => this.onItemClick(idx,c.name)}>{c.name}</Flex.Item>)
                 }
             </Flex>
         )

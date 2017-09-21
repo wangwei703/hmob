@@ -28,16 +28,16 @@ class componentName extends ChartBase {
         let series = [];
         if (Array.isArray(list) && list.length > 0) {
             list.forEach(item => {
-                let data = item.a.map((a, i) => [i+1, a]);
+                let data = item.a.map((a, i) => [i + 1, a]);
                 series.push({
                     type: "scatter",
                     name: item.s,
                     data
                 });
                 let myRegression = ecStat.regression('linear', data);
-                myRegression.points.sort(function (a, b) {
-                    return a[0] - b[0];
-                });
+                // myRegression.points.sort(function (a, b) {
+                //     return a[0] - b[0];
+                // });
 
                 let gradient = myRegression.parameter.gradient;
                 series.push(getLineSeries({
@@ -45,6 +45,12 @@ class componentName extends ChartBase {
                     name: item.s,
                     showSymbol: false,
                     data: myRegression.points,
+                    lineStyle: {
+                        normal: {
+                            width: 3*window.DPR,
+                            type: 'dotted'
+                        }
+                    },
                     markPoint: {
                         itemStyle: {
                             normal: {
@@ -57,7 +63,8 @@ class componentName extends ChartBase {
                                 position: 'left',
                                 offset: [0, 0 * window.DPR],
                                 formatter() {
-                                    return Math.round(gradient * 100) / 100;
+                                    let v = Math.round(gradient * 100) / 100;
+                                    return v;
                                 },
                                 textStyle: {
                                     color: gradient < 0 ? '#fe8080' : "#61DA00",

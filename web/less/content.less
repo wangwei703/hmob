@@ -4,16 +4,20 @@
         flex: 1;
         overflow-y: auto; // overflow-x: hidden;
     }
+    .title{
+        font-size: 70px;
+        background-color: @bg2;
+        text-align: center;
+        padding-top: .4rem;
+    }
     .infopanel {
         padding: 40px 20px;
         border-bottom: @border; // height: 70vw;
-        // min-height: 500px;
         background-color: @bg2;
         display: flex;
-        color: #999;
         .infopanel-cell {
-            line-height: 100px;
-            height: 100px;
+            line-height:70px;
+            height: 70px;
             font-size: 40px;
         }
         .infopanel-left {
@@ -21,12 +25,12 @@
             text-align: right;
             .price {
                 .rate {
-                    left: 20px;
+                    left: 10px;
                 }
             }
         }
         .infopanel-middle {
-            width: 200px;
+            width: 120px;
             text-align: center;
         }
         .infopanel-right {
@@ -34,7 +38,7 @@
             text-align: left;
             .price {
                 .rate {
-                    right: 20px;
+                    right: 10px;
                 }
             }
         }
@@ -53,8 +57,5 @@
     .chartpanel {
         height: 50vw;
         margin-bottom: 30px; // border-bottom: @border2;
-        &:last-child {
-            // margin-bottom: 30px
-        }
     }
 }
