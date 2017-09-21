@@ -1,26 +1,21 @@
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/line';
+import 'echarts/lib/chart/scatter';
+import 'echarts/lib/component/markPoint';
+import 'echarts/lib/component/title';
 
 import echarts from 'echarts/lib/echarts';
-
-// import 'echarts/lib/chart/scatter';
-
-
-
-
-
-
 
 // import 'echarts/lib/chart/pie';
 
 
 const Graphic = echarts.graphic;
 export default dom => echarts.init(dom);
-const chartColors = ['#3bafdA', '#ccc']; //'#999', '#111',
+const chartColors = ['#26AEE3', '#9859F0']; //'#999', '#111',
 
 const markColor = "#ddd";
 const labelColor = "#aaa";
-const axisLineColor = "#383838";
+const axisLineColor = "#3c394e";
 
 
 let dispose = chart => {
@@ -33,7 +28,7 @@ let dispose = chart => {
 }
 let setOption = (chart, options) => {
     let newOptions = Object.assign({
-        // backgroundColor: '#3D3B43',
+        backgroundColor: '#393649',
         color: chartColors,
         animation: false,
         grid: {
@@ -61,8 +56,8 @@ let getLineSeries = opts => {
             normal: {
                 width: 2 * window.DPR,
                 shadowColor: 'rgba(0,0,0,.6)',
-                shadowBlur: 8 * window.DPR,
-                shadowOffsetY: 5 * window.DPR
+                shadowBlur: 5 * window.DPR,
+                shadowOffsetY: 3 * window.DPR
             }
         },
     }, opts)
@@ -137,6 +132,16 @@ let xAxis = opts => {
         }
     }, opts);
 }
+let title = opts => {
+    return Object.assign({}, {
+            textStyle:{
+                color:labelColor,
+                fontSize:14*window.DPR
+            },
+            left: 10*window.DPR,
+            top:  10*window.DPR
+    }, opts);
+}
 export {
     setOption,
     dispose,
@@ -144,5 +149,6 @@ export {
     getBarSeries,
     xAxis,
     yAxis,
+    title,
     chartColors
 };

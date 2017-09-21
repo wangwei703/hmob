@@ -23,6 +23,7 @@
         "antd-mobile": "^1.6.7",
         "bundle-loader": "^0.5.5",
         "echarts": "^3.7.0",
+        "echarts-stat": "^1.1.0",
         "react": "^15.6.1",
         "react-dom": "^15.6.1",
         "react-router": "^4.1.2",
