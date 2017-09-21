@@ -19,10 +19,7 @@ class componentName extends ChartBase {
                 scale: false
             }),
             yAxis: yAxis({
-                type: 'value',
-                scale: true,
-                // min:10000,
-                // max:20000,
+                type: 'value'
             }),
             series
         })
@@ -31,7 +28,7 @@ class componentName extends ChartBase {
         let series = [];
         if (Array.isArray(list) && list.length > 0) {
             list.forEach(item => {
-                let data = item.a.map((a, i) => [i, a]);
+                let data = item.a.map((a, i) => [i+1, a]);
                 series.push({
                     type: "scatter",
                     name: item.s,

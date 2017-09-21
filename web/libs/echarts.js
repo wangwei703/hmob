@@ -27,13 +27,14 @@ let dispose = chart => {
     }
 }
 let setOption = (chart, options) => {
+    // console.log(options);
     let newOptions = Object.assign({
         // backgroundColor: '#393649',
         color: chartColors,
         animation: false,
         grid: {
-            left: 20 * window.DPR,
-            right: 20 * window.DPR,
+            left: 15 * window.DPR,
+            right: 15 * window.DPR,
             top: 0,
             bottom: 0
         },
@@ -46,6 +47,7 @@ let setOption = (chart, options) => {
 let getLineSeries = opts => {
     return Object.assign({
         type: 'line',
+        smooth: true,
         showSymbol: false,
         label: {
             normal: {
@@ -82,62 +84,45 @@ let getBarSeries = opts => {
         }
     }, opts);
 }
-let axis = {
-    splitLine: { //网格线
-        show: false
-    },
-    nameTextStyle: {
-        color: labelColor,
-        fontSize: 12 * window.DPR
-    },
-    axisLine: {
-        show: false,
-        lineStyle: {
-            color: axisLineColor
+let axis = (xy,opts) => {
+    return Object.assign({}, {
+        splitLine: {
+            show: true,
+            lineStyle: {
+                color: 'rgba(59, 56, 77, 0.1)',
+                // type: 'dashed',
+                width: 1 * window.DPR
+            }
+        },
+        nameTextStyle: {
+            color: labelColor,
+            fontSize: 12 * window.DPR
+        },
+        axisLine: {
+            show: false,
+            lineStyle: {
+                color: axisLineColor
+            }
+        },
+        axisLabel: {
+            show: false
+        },
+        axisTick: {
+            show: false
         }
-    },
-    axisLabel: {
-        show: false
-    },
-    axisTick: {
-        show: false
-    }
+    }, xy,opts);
 }
 let yAxis = opts => {
-    return Object.assign({}, axis, {
+    return axis({
         type: 'value',
         scale: true,
         nameLocation: 'end',
-        nameGap: 20,
-        splitLine: { //网格线
-            show: false,
-            lineStyle: {
-                color: 'rgba(200,200,200,.1)',
-                type: 'dashed'
-            }
-        }
+        nameGap: 20
     }, opts);
 }
 let xAxis = opts => {
-    return Object.assign({}, axis, {
-        type: 'category',
-        axisLabel: {
-            margin: 15 * window.DPR,
-            rotate: 1,
-            align: 'center',
-            textStyle: {
-                color: labelColor,
-                fontSize: 12 * window.DPR
-            },
-        },
-        splitLine: {
-            show:true,
-            lineStyle: {
-                color: "rgba(59, 56, 77, 0.3)",
-                type: 'dashed',
-                width:1*window.DPR
-            }
-        }
+    return axis({
+        type: 'category'
     }, opts);
 }
 let title = opts => {

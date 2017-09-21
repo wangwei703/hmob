@@ -17,15 +17,8 @@ class componentName extends ChartBase {
             xAxis: xAxis({
                 data: rptdata.mons
             }),
-            grid: {
-                left: 10 * window.DPR,
-                right: 10 * window.DPR,
-                top: 0,
-                bottom: 0
-            },
             yAxis: yAxis({
-                type: 'value',
-                scale: true
+                type: 'value'
             }),
             series
         })
