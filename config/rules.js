@@ -3,7 +3,7 @@ const pxtorem = require("postcss-pxtorem");
 const path = require("path");
 
 module.exports = function (src) {
-    let svgPath=[require.resolve('antd-mobile').replace(/warn\.js$/, ''),path.resolve(src, 'app/svg')];
+    let svgPath=[require.resolve('antd-mobile').replace(/warn\.js$/, ''),path.resolve(src, 'svg')];
 
     return {
         rules: [{

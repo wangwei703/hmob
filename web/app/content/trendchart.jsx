@@ -1,42 +1,23 @@
 import React, { Component } from 'react';
-import echart, { dispose, getLineSeries, setOption, title, xAxis, yAxis } from 'app/libs/echarts';
+import echart, { dispose, getLineSeries, setOption, title, xAxis, yAxis } from 'libs/echarts';
 
+import ChartBase from './chartbase';
 import PropTypes from 'prop-types';
 import ecStat from 'echarts-stat';
 
-class componentName extends Component {
-    componentDidMount() {
-        this.myChart = echart(this.refs.chart);
-        this.renderChart();
-    }
-    componentWillUnmount() {
-        dispose(this.myChart);
-    }
+class componentName extends ChartBase {
     renderChart() {
         let { rptdata } = this.props;
         let s = this.formatOption(rptdata.trend);
         let series = s;//.map(getLineSeries);
         setOption(this.myChart, {
-            title:title({
-                text:'每日价格走势',
+            title: title({
+                text: '每日均价',
             }),
             xAxis: xAxis({
                 type: "value",
-                scale: false,
-                splitLine: {
-                    interval: 0,
-                    lineStyle: {
-                        color: "#444",
-                        type: 'dashed'
-                    }
-                }
+                scale: false
             }),
-            grid: {
-                left: 10*window.DPR,
-                right: 10*window.DPR,
-                top: 0,
-                bottom: 0
-            },
             yAxis: yAxis({
                 type: 'value',
                 scale: true,
@@ -60,8 +41,8 @@ class componentName extends Component {
                 myRegression.points.sort(function (a, b) {
                     return a[0] - b[0];
                 });
-              
-                let gradient=myRegression.parameter.gradient;
+
+                let gradient = myRegression.parameter.gradient;
                 series.push(getLineSeries({
                     type: "line",
                     name: item.s,
@@ -77,13 +58,13 @@ class componentName extends Component {
                             normal: {
                                 show: true,
                                 position: 'left',
-                                offset :[0,0*window.DPR],
-                                formatter(){
-                                    return Math.round(gradient*100)/100;
+                                offset: [0, 0 * window.DPR],
+                                formatter() {
+                                    return Math.round(gradient * 100) / 100;
                                 },
                                 textStyle: {
-                                    color: gradient<0?'#fe8080':"#61DA00",
-                                    fontSize: 14*window.DPR
+                                    color: gradient < 0 ? '#fe8080' : "#61DA00",
+                                    fontSize: 14 * window.DPR
                                 }
                             }
                         },
@@ -95,11 +76,6 @@ class componentName extends Component {
             });
         }
         return series;
-    }
-    render() {
-        return (
-            <div ref="chart" className="chartpanel" ></div>
-        );
     }
 }
 

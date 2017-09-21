@@ -1,4 +1,4 @@
-@import "./header";
+@import "./nav";
 @import "./content";
 .flex-column {
     display: flex;
@@ -13,13 +13,14 @@
 
 html,
 body,
-.main {
+.main,
+.layout {
     &:extend(.fullscreen);
 }
 
 .layout {
     &:extend(.flex-column);
-    .header(@bottom-navbar-height);
+    .nav(@bottom-navbar-height);
     .content(@bottom-navbar-height);
 }
 

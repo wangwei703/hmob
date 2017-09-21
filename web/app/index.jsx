@@ -1,14 +1,12 @@
 import "./index.less";
 
 import { Flex, Icon } from 'antd-mobile';
-import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
 import React, { Component } from 'react'
 
-import Community from "app/libs/cfg";
-import Content from './layout/content';
-import NavBar from './layout/navbar';
-import fetchData from 'app/libs/fetch';
-import formatData from 'app/libs/formatdata';
+import Content from 'app/content';
+import Nav from 'app/nav';
+import fetchData from 'libs/fetch';
+import formatData from 'libs/formatdata';
 
 export default class App extends Component {
   state = {
@@ -17,27 +15,33 @@ export default class App extends Component {
   }
   componentDidMount() {
     fetchData("data").then(json => {
-      let data = formatData(json);
-      window.RPTData = data;
+      let list = formatData(json);
+      window.RPTData = list;
       this.setState({
         loading: false,
-        data
+        list,
+        data: list[0]
       });
     });
   }
+  onNavBarChange = data => {
+    if (data) {
+      this.setState({
+        data
+      })
+    }
+  }
   render() {
     return (
-      <HashRouter>
-        <Flex className="fullscreen layout" direction="column" align="stretch" justify="stretch">
-          {
-            this.state.loading ?
-              <Flex.Item style={{ textAlign: 'center', padding: '1rem' }}><Icon type="loading" size="lg" /></Flex.Item>
-              :
-              <Content rptdata={this.state.data} />
-          }
-          <NavBar />
+      this.state.loading ?
+        <div style={{ textAlign: 'center', padding: '1rem' }}>
+          <Icon type="loading" size="lg" />
+        </div>
+        :
+        <Flex direction="column" justify="stretch" align="stretch" className="layout">
+          <Content rptdata={this.state.data} />
+          <Nav activeIndex={0} rptdata={this.state.list} onChange={this.onNavBarChange} />
         </Flex>
-      </HashRouter>
     );
   }
 }

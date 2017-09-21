@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 
 import { Icon } from 'antd-mobile';
-import { chartColors } from 'app/libs/echarts';
-import monthSvg from 'app/svg/month.svg';
-import todaySvg from 'app/svg/today.svg';
+import { chartColors } from 'libs/echarts';
+import monthSvg from 'svg/month.svg';
+import todaySvg from 'svg/today.svg';
 
 class componentName extends Component {
     format(data) {

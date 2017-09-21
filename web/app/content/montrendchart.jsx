@@ -1,34 +1,21 @@
 import React, { Component } from 'react';
-import echart, { dispose, getBarSeries, setOption, title, xAxis, yAxis } from 'app/libs/echarts';
+import echart, { dispose, getLineSeries, setOption, title, xAxis, yAxis } from 'libs/echarts';
 
+import ChartBase from './chartbase';
 import PropTypes from 'prop-types';
 
-class componentName extends Component {
-    componentDidMount() {
-        this.myChart = echart(this.refs.chart);
-        this.renderChart();
-    }
-    componentWillUnmount() {
-        dispose(this.myChart);
-    }
+class componentName extends ChartBase {
+
     renderChart() {
         let { rptdata } = this.props;
-        let s = this.formatOption(rptdata.everyday);
-        let series = s;//.map(getLineSeries);
+        let s = this.formatOption(rptdata.everymon);
+        let series = s;
         setOption(this.myChart, {
             title: title({
-                text: '每日房源',
+                text: '月度走势',
             }),
             xAxis: xAxis({
-                data: rptdata.date,
-                scale: false,
-                splitLine: {
-                    interval: 0,
-                    lineStyle: {
-                        color: "#444",
-                        type: 'dashed'
-                    }
-                }
+                data: rptdata.mons
             }),
             grid: {
                 left: 10 * window.DPR,
@@ -47,8 +34,7 @@ class componentName extends Component {
         let series = [];
         if (Array.isArray(list) && list.length > 0) {
             list.forEach(item => {
-                series.push(getBarSeries({
-                    type: "bar",
+                series.push(getLineSeries({
                     name: item.s,
                     data: item.t,
                 }));
@@ -56,11 +42,7 @@ class componentName extends Component {
         }
         return series;
     }
-    render() {
-        return (
-            <div ref="chart" className="chartpanel" ></div>
-        );
-    }
+
 }
 
 componentName.propTypes = {

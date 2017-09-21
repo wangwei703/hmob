@@ -28,20 +28,20 @@ let dispose = chart => {
 }
 let setOption = (chart, options) => {
     let newOptions = Object.assign({
-        backgroundColor: '#393649',
+        // backgroundColor: '#393649',
         color: chartColors,
         animation: false,
         grid: {
-            left: 10 * window.DPR,
-            right: 10 * window.DPR,
-            top: 10 * window.DPR,
-            bottom: 30 * window.DPR
+            left: 20 * window.DPR,
+            right: 20 * window.DPR,
+            top: 0,
+            bottom: 0
         },
         textStyle: {
             fontSize: 12 * window.DPR
         }
     }, options)
-    chart && chart.setOption(newOptions);
+    chart && chart.setOption(newOptions, true);//不合并
 }
 let getLineSeries = opts => {
     return Object.assign({
@@ -66,7 +66,6 @@ let getBarSeries = opts => {
     return Object.assign({}, {
         type: 'bar',
         barWidth: 3 * window.DPR,
-        barMinHeight: 3 * window.DPR,
         label: {
             normal: {
                 show: false,
@@ -121,6 +120,7 @@ let yAxis = opts => {
 }
 let xAxis = opts => {
     return Object.assign({}, axis, {
+        type: 'category',
         axisLabel: {
             margin: 15 * window.DPR,
             rotate: 1,
@@ -129,17 +129,25 @@ let xAxis = opts => {
                 color: labelColor,
                 fontSize: 12 * window.DPR
             },
+        },
+        splitLine: {
+            show:true,
+            lineStyle: {
+                color: "rgba(59, 56, 77, 0.3)",
+                type: 'dashed',
+                width:1*window.DPR
+            }
         }
     }, opts);
 }
 let title = opts => {
     return Object.assign({}, {
-            textStyle:{
-                color:labelColor,
-                fontSize:14*window.DPR
-            },
-            left: 10*window.DPR,
-            top:  10*window.DPR
+        textStyle: {
+            color: labelColor,
+            fontSize: 12 * window.DPR
+        },
+        left: 10 * window.DPR,
+        top: 0
     }, opts);
 }
 export {

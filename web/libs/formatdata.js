@@ -111,10 +111,11 @@ export default json => {
             trend = formatTrend(json.trend, c.key);
         data.push({
             date: json.date,
+            mons:json.mons,
             source: json.source,
             name: c.name,
             today,
-            everyday,
+            // everyday,
             thismon,
             everymon,
             trend

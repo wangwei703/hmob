@@ -1,0 +1,19 @@
+.nav(@h) {
+    .navbar {
+        font-size: 24px;
+        border-top: @border;
+        height: @h;
+        line-height: @h;
+        .navbar-item {
+            display: block;
+            text-align: center;
+            color: @color2;
+            user-select: none;
+            margin: 0;
+            &.navbar-item-active {
+                background-color: @bottom-navbar-bg;
+                pointer-events: none;
+            }
+        }
+    }
+}
