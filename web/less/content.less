@@ -5,50 +5,56 @@
         overflow-y: auto; // overflow-x: hidden;
     }
     .infopanel {
-        padding: 10px 0;
-        border-bottom: @border;
-        height: 70vw;
-        min-height: 500px;
+        padding: 40px 20px;
+        border-bottom: @border; // height: 70vw;
+        // min-height: 500px;
         background-color: @bg2;
-        .infopanel-item-head {
-            color: fade(@color3, 60);
-            display: grid;
-            grid-column-gap: 5px;
-            grid-template-columns: 150px 2fr 2fr;
-            .infopanel-item-column {
-                text-align: center;
-                padding-top: 15px;
-            }
+        display: flex;
+        color: #999;
+        .infopanel-cell {
+            line-height: 100px;
+            height: 100px;
+            font-size: 40px;
         }
-        .infopanel-item {
-            margin: 0px 20px;
-            height: 55px;
-            line-height: 55px;
-            display: grid;
-            grid-column-gap: 5px;
-            grid-template-columns: 150px 2fr 2fr;
-            font-size: 26px;
-            .infopanel-item-column {
-                text-align: center;
-            }
+        .infopanel-left {
+            flex: 1;
+            text-align: right;
             .price {
-                font-size: 36px;
-            }
-            .rate {
-                font-size: 20px;
-                color: @green;
-                &.down {
-                    color: @orange;
+                .rate {
+                    left: 20px;
                 }
             }
+        }
+        .infopanel-middle {
+            width: 200px;
+            text-align: center;
+        }
+        .infopanel-right {
+            flex: 1;
+            text-align: left;
+            .price {
+                .rate {
+                    right: 20px;
+                }
+            }
+        }
+        .price {
+            position: relative;
+        }
+        .rate {
+            font-size: 26px;
+            color: @green;
+            position: absolute;
+        }
+        .down {
+            color: @orange;
         }
     }
     .chartpanel {
         height: 50vw;
-        margin-top: 20px;
-        border-bottom: @border2;
+        margin-bottom: 30px; // border-bottom: @border2;
         &:last-child {
-            border-bottom: 0;
+            // margin-bottom: 30px
         }
     }
 }

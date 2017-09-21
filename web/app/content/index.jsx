@@ -19,7 +19,7 @@ class Report extends Component {
         console.log(data);
         return (
             <div className="content">
-                <InfoPanel rptdata={{ source: data.source, today: data.today, thismon: data.thismon }} />
+                <InfoPanel rptdata={{ source: data.source, today: data.today, thismon: data.thismon,trend:data.trend }} />
                 <TrendChart rptdata={{ trend: data.trend }} />
                 <QuaChart rptdata={{ date: data.date, everyday: data.trend }} />
                 <MonthTrendChart rptdata={{ mons: data.mons, everymon: data.everymon }} />

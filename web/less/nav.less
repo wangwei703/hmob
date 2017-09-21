@@ -4,14 +4,16 @@
         border-top: @border;
         height: @h;
         line-height: @h;
+        color: @color2;
+        background-color: @bottom-navbar-bg;
         .navbar-item {
             display: block;
             text-align: center;
-            color: @color2;
+            
             user-select: none;
             margin: 0;
             &.navbar-item-active {
-                background-color: @bottom-navbar-bg;
+                background-color: @bottom-navbar-active-bg;
                 pointer-events: none;
             }
         }

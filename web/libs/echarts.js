@@ -14,7 +14,7 @@ export default dom => echarts.init(dom);
 const chartColors = ['#26AEE3', '#9859F0']; //'#999', '#111',
 
 const markColor = "#ddd";
-const labelColor = "#aaa";
+const labelColor = "#666";
 const axisLineColor = "#3c394e";
 
 
@@ -29,14 +29,14 @@ let dispose = chart => {
 let setOption = (chart, options) => {
     // console.log(options);
     let newOptions = Object.assign({
-        // backgroundColor: '#393649',
+        backgroundColor: '#eee',
         color: chartColors,
         animation: false,
         grid: {
-            left: 15 * window.DPR,
-            right: 15 * window.DPR,
-            top: 0,
-            bottom: 0
+            left: 45 * window.DPR,
+            right: 10 * window.DPR,
+            top: 40 * window.DPR,
+            bottom: 15* window.DPR
         },
         textStyle: {
             fontSize: 12 * window.DPR
@@ -84,7 +84,7 @@ let getBarSeries = opts => {
         }
     }, opts);
 }
-let axis = (xy,opts) => {
+let axis = (xy, opts) => {
     return Object.assign({}, {
         splitLine: {
             show: true,
@@ -110,19 +110,37 @@ let axis = (xy,opts) => {
         axisTick: {
             show: false
         }
-    }, xy,opts);
+    }, xy, opts);
 }
 let yAxis = opts => {
     return axis({
         type: 'value',
         scale: true,
         nameLocation: 'end',
+        axisLabel: {
+            // show: true,
+            //inside:true,
+            // margin:-10* window.DPR,
+            textStyle: {
+                color: labelColor,
+                fontSize: 12 * window.DPR
+            },
+            formatter(v){
+                if(v>5000){
+                   return Math.round(v/100)/100+"万" 
+                }
+                return v;
+            }
+        },
         nameGap: 20
     }, opts);
 }
 let xAxis = opts => {
     return axis({
-        type: 'category'
+        type: 'category',
+        splitLine: {
+            show: false
+        }
     }, opts);
 }
 let title = opts => {
@@ -131,8 +149,8 @@ let title = opts => {
             color: labelColor,
             fontSize: 12 * window.DPR
         },
-        left: 10 * window.DPR,
-        top: 0
+        left: 5 * window.DPR,
+        top: 10 * window.DPR,
     }, opts);
 }
 export {
