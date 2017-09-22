@@ -7,16 +7,15 @@ import PropTypes from 'prop-types';
 class componentName extends ChartBase {
     getValue(data) {
         if (typeof data === "object" && typeof data.a === "number") {
-            let v = data.a,
-                p = Math.round(v / 200);
-            return ["￥" + v, p]
+            let v = data.a;
+            return v
         } else {
-            return ["-", 0];
+            return ;
         }
     }
     formatSeries(rptdata) {
-        let [v, p] = this.getValue(rptdata.data.today),
-            [mv, mp] = this.getValue(rptdata.data.thismon),
+        let v = this.getValue(rptdata.data.today),
+            mv = this.getValue(rptdata.data.thismon),
             trendColor = rptdata.tc;
         let series = [{
             name: 'Pie1',
@@ -35,24 +34,29 @@ class componentName extends ChartBase {
             },
             hoverAnimation: false,
             data: [{
-                value: p,
+                value: v,
                 label: {
                     normal: {
-                        formatter: `${v}`,
+                        formatter(s){
+                            if(typeof s.value==="number"){
+                                return "￥"+s.value
+                            }
+                            return "-"
+                        },
                         position: 'center',
                         show: true,
                         textStyle: {
-                            fontSize: 24 * window.DPR,
+                            fontSize: 20 * window.DPR,
                             fontWeight: 'normal'
                         }
                     }
                 }
             }, {
-                value: 100 - p,
+                value: 20000 - v,
                 name: 'invisible',
                 itemStyle: {
                     normal: {
-                        color: 'rgba(68, 68, 68,.3)', // 未完成的圆环的颜色
+                        color: 'rgba(68, 68, 68,.5)', // 未完成的圆环的颜色
                         label: {
                             show: false
                         },
@@ -107,18 +111,18 @@ class componentName extends ChartBase {
             color: [rptdata.color],
             title: {
                 text: rptdata.text,
-                subtext: "\n\n\n" + mv,
+                subtext:typeof mv==="number"?("\n\n￥" + mv):"",
                 x: 'center',
                 y: '25%',
                 textStyle: {
                     fontWeight: 'normal',
                     color: rptdata.color,
-                    fontSize: 14 * window.DPR
+                    fontSize: 16 * window.DPR
                 },
                 subtextStyle: {
                     fontWeight: 'normal',
                     color: rptdata.color,
-                    fontSize: 16 * window.DPR
+                    fontSize: 12 * window.DPR
                 }
             },
             series

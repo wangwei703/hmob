@@ -8,7 +8,8 @@ import echarts from 'echarts/lib/echarts';
 
 const Graphic = echarts.graphic;
 export default dom => echarts.init(dom);
-const chartColors = ['#39DBF2', '#9859F0']; //'#999', '#111',
+const chartColors = ['#00CAFF', '#9859F0']; //'#999', '#111',
+const bgColor="#2D2B2F";
 
 const markColor = "#ddd";
 const labelColor = "#999";
@@ -26,7 +27,7 @@ let dispose = chart => {
 let setOption = (chart, options) => {
     // console.log(options);
     let newOptions = Object.assign({
-        backgroundColor: '#333',//'#eee',
+        backgroundColor: bgColor,
         color: chartColors,
         animation: false,
         grid: {

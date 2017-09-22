@@ -3,9 +3,9 @@
 import App from './app';
 import React from "react";
 import ReactDOM from "react-dom";
-import attachFastClick from 'fastclick';
+import initReactFastclick from 'react-fastclick';
 
-attachFastClick(document.body);
+// initReactFastclick();
 window.DPR=window.devicePixelRatio||1;
 ReactDOM.render(
   <App />,
