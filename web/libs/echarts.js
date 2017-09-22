@@ -71,15 +71,12 @@ let getBarSeries = opts => {
         barCategoryGap: 0,
         label: {
             normal: {
-                show: false,
-                rotate: 45,
-                position: 'top',
-                color: labelColor
+                show: false
             }
         },
         itemStyle: {
             normal: {
-                barBorderRadius: [0, 0, 2, 2],
+                barBorderRadius: [0, 0, 2*window.DPR, 2*window.DPR],
                 opacity: .8
             }
         }
@@ -100,10 +97,7 @@ let axis = (xy, opts) => {
             fontSize: 12 * window.DPR
         },
         axisLine: {
-            show: false,
-            lineStyle: {
-                color: axisLineColor
-            }
+            show: false
         },
         axisLabel: {
             show: false
@@ -119,9 +113,7 @@ let yAxis = opts => {
         scale: true,
         nameLocation: 'end',
         axisLabel: {
-            // show: true,
-            //inside:true,
-            // margin:-10* window.DPR,
+
             textStyle: {
                 color: labelColor,
                 fontSize: 12 * window.DPR
