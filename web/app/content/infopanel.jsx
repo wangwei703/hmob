@@ -5,21 +5,15 @@ import { chartColors } from 'libs/echarts';
 
 class componentName extends Component {
 
-    formatTrend(data) {
+    formatTrendColor(data) {
+        let c;
         if (data && Array.isArray(data.slr) && data.slr.length === 2) {
             let slr = data.slr[1];
             if (typeof slr === "number") {
-                slr = Math.round(slr * 100) / 100
-                let cls = "", val = slr;
-                if (slr < 0) {
-                    cls = "down";
-                } else {
-                    val = "+" + slr;
-                }
-                return [val, cls];
+                c = slr >= 0 ? "#61DA00" : "#F62880";
             }
         }
-        return ["", ""];
+        return c;
     }
     renderContent(idx) {
         let { rptdata } = this.props;
@@ -28,23 +22,17 @@ class componentName extends Component {
             source = rptdata.source[idx],
             trend = rptdata.trend.find(d => d.s === source.k),
             today = rptdata.today.data.find(d => d.s === source.k),
-            thismon = rptdata.thismon.data.find(d => d.s === source.k);
-        let [tv, tv_cls] = this.formatTrend(trend)
-        let content = [
-            <TodayChart key={idx + "-1"} rptdata={{
-                color,
-                text: source.n,
-                data: {
-                    today,
-                    thismon
-                }
-            }}  style={{margin:0}}/>,
-            <div key={idx + "-2"} className={"infopanel-cell rate " + tv_cls}>
-                {tv}
-            </div>
-        ];
-
-        return content;
+            thismon = rptdata.thismon.data.find(d => d.s === source.k),
+            tc = this.formatTrendColor(trend)
+        return <TodayChart key={idx + "-1"} rptdata={{
+            color,
+            text: source.n,
+            tc,
+            data: {
+                today,
+                thismon
+            }
+        }} style={{ margin: 0 }} />;
     }
     render() {
         return (

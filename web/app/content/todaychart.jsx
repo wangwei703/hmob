@@ -14,17 +14,100 @@ class componentName extends ChartBase {
             return ["-", 0];
         }
     }
+    formatSeries(rptdata) {
+        let [v, p] = this.getValue(rptdata.data.today),
+            [mv, mp] = this.getValue(rptdata.data.thismon),
+            trendColor = rptdata.tc;
+        let series = [{
+            name: 'Pie1',
+            type: 'pie',
+            clockWise: false,
+            radius: ['80%', '85%'],
+            itemStyle: {
+                normal: {
+                    label: {
+                        show: false
+                    },
+                    labelLine: {
+                        show: false
+                    }
+                }
+            },
+            hoverAnimation: false,
+            data: [{
+                value: p,
+                label: {
+                    normal: {
+                        formatter: `${v}`,
+                        position: 'center',
+                        show: true,
+                        textStyle: {
+                            fontSize: 24 * window.DPR,
+                            fontWeight: 'normal'
+                        }
+                    }
+                }
+            }, {
+                value: 100 - p,
+                name: 'invisible',
+                itemStyle: {
+                    normal: {
+                        color: 'rgba(68, 68, 68,.3)', // 未完成的圆环的颜色
+                        label: {
+                            show: false
+                        },
+                        labelLine: {
+                            show: false
+                        }
+                    }
+                }
+            }]
+        }];
+        if (trendColor) {
+            series.push({
+                name: 'Pie1',
+                type: 'pie',
+                clockWise: false,
+                radius: ['88%', '89%'],
+                itemStyle: {
+                    normal: {
+                        label: {
+                            show: false
+                        },
+                        labelLine: {
+                            show: false
+                        }
+                    }
+                },
+                hoverAnimation: false,
+                data: [{
+                    value: 100,
+                    label: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: trendColor,
+                            // shadowColor: trendColor,
+                            // shadowBlur: 10 * window.DPR
+                        }
+                    }
+                }]
+            });
+        }
+        return { series, mv };
+    }
     renderChart() {
         let { rptdata } = this.props;
-        console.log(rptdata);
-        let [v, p] = this.getValue(rptdata.data.today),
-            [mv, mp] = this.getValue(rptdata.data.thismon);
+        let { series, mv } = this.formatSeries(rptdata);
         setOption(this.myChart, {
             backgroundColor: "transparent",
             color: [rptdata.color],
             title: {
                 text: rptdata.text,
-                subtext: "\n\n\n"+mv,
+                subtext: "\n\n\n" + mv,
                 x: 'center',
                 y: '25%',
                 textStyle: {
@@ -38,65 +121,7 @@ class componentName extends ChartBase {
                     fontSize: 16 * window.DPR
                 }
             },
-            tooltip: {
-                show: false,
-            },
-            toolbox: {
-                show: false,
-            },
-            series: [{
-                name: 'Pie1',
-                type: 'pie',
-                clockWise: false,
-                radius: ['80%', '85%'],
-                itemStyle: {
-                    normal: {
-                        label: {
-                            show: false
-                        },
-                        labelLine: {
-                            show: false
-                        },
-                        shadowBlur: 40,
-                        shadowColor: 'rgba(40, 40, 40, 0.5)',
-                    }
-                },
-                hoverAnimation: false,
-                data: [{
-                    value: p,
-                    label: {
-                        normal: {
-                            formatter: `${v}`,
-                            position: 'center',
-                            show: true,
-                            textStyle: {
-                                fontSize: 24 * window.DPR,
-                                fontWeight: 'normal'
-                            }
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            shadowColor: rptdata.color,
-                            shadowBlur: 10* window.DPR
-                        }
-                    }
-                }, {
-                    value: 100 - p,
-                    name: 'invisible',
-                    itemStyle: {
-                        normal: {
-                            color: 'rgba(68, 68, 68,.3)', // 未完成的圆环的颜色
-                            label: {
-                                show: false
-                            },
-                            labelLine: {
-                                show: false
-                            }
-                        }
-                    }
-                }]
-            }]
+            series
         });
     }
     formatOption(list) {

@@ -15,11 +15,7 @@ class componentName extends ChartBase {
                 text: '月度走势',
             }),
             xAxis: xAxis({
-                data: rptdata.mons,
-                axisLabel: {
-                    interval: 0,
-                    show: false,
-                }
+                data: rptdata.mons
             }),
             yAxis: yAxis({
                 type: 'value'
@@ -33,9 +29,7 @@ class componentName extends ChartBase {
             list.forEach(item => {
                 series.push(getLineSeries({
                     name: item.s,
-                    data: item.t,
-                    showSymbol: true,
-                    symbolSize :5*window.DPR
+                    data: item.t
                 }));
             });
         }

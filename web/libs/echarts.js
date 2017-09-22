@@ -1,30 +1,26 @@
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/line';
-import 'echarts/lib/chart/scatter';
 import 'echarts/lib/chart/pie';
 import 'echarts/lib/component/markPoint';
 import 'echarts/lib/component/title';
 
 import echarts from 'echarts/lib/echarts';
 
-// import 'echarts/lib/chart/pie';
-
-
 const Graphic = echarts.graphic;
 export default dom => echarts.init(dom);
-const chartColors = ['#26AEE3', '#9859F0']; //'#999', '#111',
+const chartColors = ['#39DBF2', '#9859F0']; //'#999', '#111',
 
 const markColor = "#ddd";
 const labelColor = "#999";
-const axisLineColor = "#888";
+const axisLineColor = "#37383C";
 
 
 let dispose = chart => {
     if (chart) {
         chart.clear();
         if (!chart.isDisposed())
-            chart.dispose();
-        chart = null;
+            // chart.dispose();
+            chart = null;
     }
 }
 let setOption = (chart, options) => {
@@ -37,7 +33,7 @@ let setOption = (chart, options) => {
             left: 45 * window.DPR,
             right: 10 * window.DPR,
             top: 40 * window.DPR,
-            bottom: 15* window.DPR
+            bottom: 15 * window.DPR
         },
         textStyle: {
             fontSize: 12 * window.DPR
@@ -49,7 +45,9 @@ let getLineSeries = opts => {
     return Object.assign({
         type: 'line',
         smooth: true,
-        showSymbol: false,
+        showAllSymbol: true,
+        showSymbol: true,
+        symbolSize: 5 * window.DPR,
         label: {
             normal: {
                 show: false,
@@ -68,7 +66,9 @@ let getLineSeries = opts => {
 let getBarSeries = opts => {
     return Object.assign({}, {
         type: 'bar',
-        barWidth: 3 * window.DPR,
+        // barWidth: 3 * window.DPR,
+        barGap: 0,
+        barCategoryGap: 0,
         label: {
             normal: {
                 show: false,
@@ -90,7 +90,7 @@ let axis = (xy, opts) => {
         splitLine: {
             show: true,
             lineStyle: {
-                color: 'rgba(59, 56, 77, 0.1)',
+                color: 'rgba(55, 55, 55, 0.7)',
                 // type: 'dashed',
                 width: 1 * window.DPR
             }
@@ -126,9 +126,9 @@ let yAxis = opts => {
                 color: labelColor,
                 fontSize: 12 * window.DPR
             },
-            formatter(v){
-                if(v>5000){
-                   return Math.round(v/100)/100+"万" 
+            formatter(v) {
+                if (v > 5000) {
+                    return Math.round(v / 100) / 100 + "万"
                 }
                 return v;
             }

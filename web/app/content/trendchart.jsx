@@ -16,7 +16,8 @@ class componentName extends ChartBase {
             }),
             xAxis: xAxis({
                 type: "value",
-                scale: false
+                scale: false,
+
             }),
             yAxis: yAxis({
                 type: 'value'
@@ -29,11 +30,12 @@ class componentName extends ChartBase {
         if (Array.isArray(list) && list.length > 0) {
             list.forEach(item => {
                 let data = item.a.map((a, i) => [i + 1, a]);
-                series.push({
-                    type: "scatter",
+                series.push(getLineSeries({
                     name: item.s,
-                    data
-                });
+                    data,
+                    showSymbol: true,
+                    symbolSize: 5 * window.DPR
+                }));
                 let myRegression = ecStat.regression('linear', data);
                 // myRegression.points.sort(function (a, b) {
                 //     return a[0] - b[0];
@@ -41,13 +43,12 @@ class componentName extends ChartBase {
 
                 let gradient = myRegression.parameter.gradient;
                 series.push(getLineSeries({
-                    type: "line",
                     name: item.s,
                     showSymbol: false,
                     data: myRegression.points,
                     lineStyle: {
                         normal: {
-                            width: 3*window.DPR,
+                            width: 1 * window.DPR,
                             type: 'dashed'
                         }
                     },
@@ -67,7 +68,7 @@ class componentName extends ChartBase {
                                     return v;
                                 },
                                 textStyle: {
-                                    color: gradient < 0 ? '#fe8080' : "#61DA00",
+                                    color: gradient < 0 ? '#F62880' : "#61DA00",
                                     fontSize: 14 * window.DPR
                                 }
                             }
