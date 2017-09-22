@@ -30,6 +30,7 @@ class componentName extends ChartBase {
                 series.push(getBarSeries({
                     name: item.s,
                     data: item.t,
+                    stack:'qua'
                 }));
             });
         }

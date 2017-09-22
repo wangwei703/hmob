@@ -17,7 +17,7 @@ class componentName extends Component {
     }
     renderContent(idx) {
         let { rptdata } = this.props;
-        console.log(rptdata);
+        // console.log(rptdata);
         let color = chartColors[idx],
             source = rptdata.source[idx],
             trend = rptdata.trend.find(d => d.s === source.k),
@@ -32,7 +32,7 @@ class componentName extends Component {
                 today,
                 thismon
             }
-        }} style={{ margin: 0 }} />;
+        }} style={{ margin: 0,height:'40vw' }} />;
     }
     render() {
         return (

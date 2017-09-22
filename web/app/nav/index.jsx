@@ -15,7 +15,7 @@ class componentName extends Component {
         this.props.onChange&&this.props.onChange(this.state.data[idx],name);
     }
     render() {
-        console.log("render nav");
+        // console.log("render nav");
         return (
             <Flex justify="stretch" align="stretch" className="navbar">
                 {

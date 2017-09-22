@@ -69,7 +69,7 @@ let getBarSeries = opts => {
         type: 'bar',
         // barWidth: 3 * window.DPR,
         barGap: 0,
-        barCategoryGap: 0,
+        barCategoryGap: 2* window.DPR,
         label: {
             normal: {
                 show: false
@@ -77,7 +77,7 @@ let getBarSeries = opts => {
         },
         itemStyle: {
             normal: {
-                barBorderRadius: [0, 0, 2*window.DPR, 2*window.DPR],
+                // barBorderRadius: [2*window.DPR, 2*window.DPR,0, 0],
                 opacity: .8
             }
         }

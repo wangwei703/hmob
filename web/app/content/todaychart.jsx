@@ -111,7 +111,7 @@ class componentName extends ChartBase {
             color: [rptdata.color],
             title: {
                 text: rptdata.text,
-                subtext:typeof mv==="number"?("\n\n￥" + mv):"",
+                subtext:typeof mv==="number"?("\n\n\n￥" + mv):"",
                 x: 'center',
                 y: '25%',
                 textStyle: {
@@ -127,18 +127,6 @@ class componentName extends ChartBase {
             },
             series
         });
-    }
-    formatOption(list) {
-        let series = [];
-        if (Array.isArray(list) && list.length > 0) {
-            list.forEach(item => {
-                series.push(getBarSeries({
-                    name: item.s,
-                    data: item.t,
-                }));
-            });
-        }
-        return series;
     }
 }
 
