@@ -4,51 +4,24 @@
         flex: 1;
         overflow-y: auto; // overflow-x: hidden;
     }
-    .title{
-        font-size: 70px;
-        background-color: @bg2;
+    .title {
+        font-size: 90px; // background-color: @bg2;
         text-align: center;
         padding-top: .4rem;
+        text-shadow: 1px 1px #000000, -1px -1px #828282;
+        color: @bg;
+        letter-spacing: 10px;
     }
     .infopanel {
-        padding: 40px 20px;
-        border-bottom: @border; // height: 70vw;
-        background-color: @bg2;
+        padding: 40px 0; // border-bottom: @border; // height: 70vw;
         display: flex;
-        .infopanel-cell {
-            line-height:70px;
-            height: 70px;
-            font-size: 40px;
-        }
-        .infopanel-left {
+        .infopanel-col-item {
             flex: 1;
-            text-align: right;
-            .price {
-                .rate {
-                    left: 10px;
-                }
-            }
-        }
-        .infopanel-middle {
-            width: 120px;
-            text-align: center;
-        }
-        .infopanel-right {
-            flex: 1;
-            text-align: left;
-            .price {
-                .rate {
-                    right: 10px;
-                }
-            }
-        }
-        .price {
-            position: relative;
         }
         .rate {
             font-size: 26px;
             color: @green;
-            position: absolute;
+            text-align: center;
         }
         .down {
             color: @orange;
@@ -56,6 +29,7 @@
     }
     .chartpanel {
         height: 50vw;
-        margin-bottom: 30px; // border-bottom: @border2;
+        margin: 15px; // border-bottom: @border2;
+        border-radius: 3px;
     }
 }

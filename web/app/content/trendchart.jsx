@@ -48,7 +48,7 @@ class componentName extends ChartBase {
                     lineStyle: {
                         normal: {
                             width: 3*window.DPR,
-                            type: 'dotted'
+                            type: 'dashed'
                         }
                     },
                     markPoint: {

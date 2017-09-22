@@ -1,6 +1,7 @@
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/scatter';
+import 'echarts/lib/chart/pie';
 import 'echarts/lib/component/markPoint';
 import 'echarts/lib/component/title';
 
@@ -14,8 +15,8 @@ export default dom => echarts.init(dom);
 const chartColors = ['#26AEE3', '#9859F0']; //'#999', '#111',
 
 const markColor = "#ddd";
-const labelColor = "#666";
-const axisLineColor = "#3c394e";
+const labelColor = "#999";
+const axisLineColor = "#888";
 
 
 let dispose = chart => {
@@ -29,7 +30,7 @@ let dispose = chart => {
 let setOption = (chart, options) => {
     // console.log(options);
     let newOptions = Object.assign({
-        backgroundColor: '#eee',
+        backgroundColor: '#333',//'#eee',
         color: chartColors,
         animation: false,
         grid: {
