@@ -6,16 +6,20 @@
         line-height: @h;
         color: @color2;
         background-color: @bottom-navbar-bg;
-        .navbar-item {
+        display: flex;
+        justify-content: space-around;
+        .hm-item {
             display: block;
             text-align: center;
-            
+            flex: 1;
             user-select: none;
             margin: 0;
-            &.navbar-item-active {
-                background-color: @bottom-navbar-active-bg;
-                pointer-events: none;
-            }
+            background-color: transparent!important;
+            color: @color2!important;
+        }
+        .hm-item-selected{
+            background-color: @bottom-navbar-active-bg!important;
+            pointer-events: none;
         }
     }
 }

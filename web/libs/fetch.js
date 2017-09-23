@@ -1,5 +1,5 @@
 import Storage from './storage';
-import { Toast } from 'antd-mobile';
+// import { Toast } from 'antd-mobile';
 
 function fillFilePath(filename, cache) {
     let path = `./data/${filename}.json`;
@@ -19,7 +19,7 @@ function requestData(path) {
             throw response.statusText;
         }
     }).catch(e => {
-        Toast.fail(typeof e === "string" ? e : '加载数据失败', 3);
+        alert(typeof e === "string" ? e : '加载数据失败', 3);
     });
 }
 export default (filename, cache = false) => {

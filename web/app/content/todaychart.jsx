@@ -21,7 +21,7 @@ class componentName extends ChartBase {
             name: 'Pie1',
             type: 'pie',
             clockWise: false,
-            radius: ['80%', '85%'],
+            radius: ['77%', '80%'],
             itemStyle: {
                 normal: {
                     label: {
@@ -72,7 +72,7 @@ class componentName extends ChartBase {
                 name: 'Pie1',
                 type: 'pie',
                 clockWise: false,
-                radius: ['88%', '89%'],
+                radius: ['89%', '90%'],
                 itemStyle: {
                     normal: {
                         label: {

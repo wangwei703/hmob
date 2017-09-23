@@ -65,7 +65,7 @@ class componentName extends ChartBase {
                                 },
                                 textStyle: {
                                     color: gradient < 0 ? '#F62880' : "#61DA00",
-                                    fontSize: 14 * window.DPR
+                                    fontSize: 12 * window.DPR
                                 }
                             }
                         },

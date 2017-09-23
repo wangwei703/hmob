@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 
 import InfoPanel from 'app/content/infopanel';
-import List from './list';
+// import List from './list';
 import MonthTrendChart from './montrendchart';
 import QuaChart from './quachart';
 import { SegmentedControl } from 'antd-mobile';
@@ -25,14 +25,14 @@ class Report extends Component {
         });
     }
     renderContent(data,tab) {
-        if (tab === 0) {
+        // if (tab === 0) {
             return [
                 <TrendChart key="trendchart" rptdata={{ date: data.date,trend: data.trend }} />,
                 <QuaChart key="quachart" rptdata={{ date: data.date, everyday: data.trend }} />,
                 <MonthTrendChart key="monthtrendchart" rptdata={{ mons: data.mons, everymon: data.everymon }} />];
-        } else {
-            return <List rptdata={{ date: data.date, everyday: data.trend,everymon: data.everymon }}/>;
-        }
+        // } else {
+        //     return <List rptdata={{ date: data.date, everyday: data.trend,everymon: data.everymon }}/>;
+        // }
     }
     render() {
         let data = this.state.data;

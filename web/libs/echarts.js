@@ -8,12 +8,12 @@ import echarts from 'echarts/lib/echarts';
 
 const Graphic = echarts.graphic;
 export default dom => echarts.init(dom);
-const chartColors = ['#00CAFF', '#9859F0']; //'#999', '#111',
-const bgColor = "#2D2B2F";
+const chartColors = ['#2598e9', '#e26545', '#00CAFF', '#9859F0']; //'#999', '#111',
+const bgColor = "#3e366f";
 
 const markColor = "#ddd";
-const labelColor = "#999";
-const axisLineColor = "#37383C";
+const labelColor = "#cdc6e7";
+const axisLineColor = "#342b64";
 
 
 let dispose = chart => {
@@ -31,7 +31,7 @@ let setOption = (chart, options) => {
         color: chartColors,
         animation: false,
         grid: {
-            left: 45 * window.DPR,
+            left: 35 * window.DPR,
             right: 10 * window.DPR,
             top: 40 * window.DPR,
             bottom: 30 * window.DPR
@@ -44,7 +44,7 @@ let setOption = (chart, options) => {
             axisPointer: {
                 type: 'shadow',
                 label: {
-                    backgroundColor: '#6a7985'
+                    backgroundColor: '#a49cc1'
                 }
             },
 
@@ -127,7 +127,7 @@ let yAxis = opts => {
 
             textStyle: {
                 color: labelColor,
-                fontSize: 12 * window.DPR
+                fontSize: 8 * window.DPR
             },
             formatter(v) {
                 if (v > 5000) {

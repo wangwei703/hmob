@@ -11,23 +11,27 @@ import formatData from 'libs/formatdata';
 export default class App extends Component {
   state = {
     loading: true,
-    data: []
+    data: [],
+    selectedIndex:0
   }
   componentDidMount() {
     fetchData("data").then(json => {
       let list = formatData(json);
       window.RPTData = list;
+      let data=list[this.state.selectedIndex];
       this.setState({
         loading: false,
         list,
-        data: list[0]
+        data
       });
     });
   }
-  onNavBarChange = (data,name) => {
+  onNavBarChange = (selectedIndex, name) => {
+    let data = this.state.list[selectedIndex];
     if (data) {
       this.setState({
-        data
+        data,
+        selectedIndex
       })
     }
   }
@@ -39,8 +43,8 @@ export default class App extends Component {
         </div>
         :
         <Flex direction="column" justify="stretch" align="stretch" className="layout">
-          <Content rptdata={this.state.data}/>
-          <Nav activeIndex={0} rptdata={this.state.list} onChange={this.onNavBarChange} />
+          <Content rptdata={this.state.data} />
+          <Nav selectedIndex={this.state.selectedIndex} rptdata={this.state.list} onChange={this.onNavBarChange} />
         </Flex>
     );
   }

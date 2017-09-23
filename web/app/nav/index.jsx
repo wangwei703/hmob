@@ -1,27 +1,34 @@
 import React, { Component } from 'react'
 
-import { Flex } from 'antd-mobile';
+import { SegmentedControl } from 'antd-mobile';
 
 class componentName extends Component {
     state = {
         data: this.props.rptdata,
-        activeIndex: 0
+        selectedIndex:this.props.selectedIndex
     }
-    onItemClick = (idx,name) => {
-        if (this.state.activeIndex === idx) return;
+    onChange = e => {
+        let idx=e.nativeEvent.selectedSegmentIndex,
+            name=e.nativeEvent.value;
+        this.props.onChange && this.props.onChange(idx, name);
+    }
+    componentWillReceiveProps(nextProps) {
         this.setState({
-            activeIndex: idx
-        });
-        this.props.onChange&&this.props.onChange(this.state.data[idx],name);
+            selectedIndex: nextProps.selectedIndex
+        })
     }
     render() {
-        // console.log("render nav");
+        let values=this.state.data.map(c=>c.name);
         return (
-            <Flex justify="stretch" align="stretch" className="navbar">
-                {
-                    this.state.data.map((c, idx) => <Flex.Item key={idx} className={"navbar-item " + (this.state.activeIndex === idx ? "navbar-item-active" : "")} onClick={() => this.onItemClick(idx,c.name)}>{c.name}</Flex.Item>)
-                }
-            </Flex>
+            <SegmentedControl
+                tintColor={'#373461'}
+                className="navbar"
+                prefixCls="hm"
+                selectedIndex={this.state.selectedIndex}
+                style={{ borderRadius: 0 }}
+                values={values}
+                onChange={this.onChange}
+            />
         )
     }
 }
