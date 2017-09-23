@@ -16,8 +16,7 @@ class componentName extends ChartBase {
             }),
             xAxis: xAxis({
                 type: "value",
-                scale: false,
-
+                scale: true,
             }),
             yAxis: yAxis({
                 type: 'value'
@@ -34,13 +33,10 @@ class componentName extends ChartBase {
                     name: item.s,
                     data,
                     showSymbol: true,
-                    symbolSize: 5 * window.DPR
+                    symbolSize: 5 * window.DPR,
+
                 }));
                 let myRegression = ecStat.regression('linear', data);
-                // myRegression.points.sort(function (a, b) {
-                //     return a[0] - b[0];
-                // });
-
                 let gradient = myRegression.parameter.gradient;
                 series.push(getLineSeries({
                     name: item.s,

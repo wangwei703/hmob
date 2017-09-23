@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import echart, { dispose, getBarSeries, setOption, title, xAxis, yAxis } from 'libs/echarts';
+import echart, { dispose, getBarSeries, setOption, title, xAxis, yAxis,axisLabel } from 'libs/echarts';
 
 import ChartBase from './chartbase';
 import PropTypes from 'prop-types';
@@ -10,12 +10,14 @@ class componentName extends ChartBase {
         let { rptdata } = this.props;
         let s = this.formatOption(rptdata.everyday);
         let series = s;//.map(getLineSeries);
+        let len=rptdata.date.length;
         setOption(this.myChart, {
             title: title({
                 text: '每日房源',
             }),
             xAxis: xAxis({
-                data: rptdata.date
+                data: rptdata.date,
+                axisLabel:axisLabel(len,5)
             }),
             yAxis: yAxis({
                 type: 'value'

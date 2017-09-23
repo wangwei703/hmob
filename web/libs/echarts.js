@@ -3,13 +3,13 @@ import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/pie';
 import 'echarts/lib/component/markPoint';
 import 'echarts/lib/component/title';
-
+// import 'echarts/lib/component/tooltip';
 import echarts from 'echarts/lib/echarts';
 
 const Graphic = echarts.graphic;
 export default dom => echarts.init(dom);
 const chartColors = ['#00CAFF', '#9859F0']; //'#999', '#111',
-const bgColor="#2D2B2F";
+const bgColor = "#2D2B2F";
 
 const markColor = "#ddd";
 const labelColor = "#999";
@@ -20,7 +20,7 @@ let dispose = chart => {
     if (chart) {
         chart.clear();
         if (!chart.isDisposed())
-            // chart.dispose();
+        // chart.dispose();
             chart = null;
     }
 }
@@ -34,13 +34,23 @@ let setOption = (chart, options) => {
             left: 45 * window.DPR,
             right: 10 * window.DPR,
             top: 40 * window.DPR,
-            bottom: 15 * window.DPR
+            bottom: 30 * window.DPR
         },
         textStyle: {
             fontSize: 12 * window.DPR
-        }
+        },
+        tooltip: { //提示框组件
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            },
+
+        },
     }, options)
-    chart && chart.setOption(newOptions, true);//不合并
+    chart && chart.setOption(newOptions, true); //不合并
 }
 let getLineSeries = opts => {
     return Object.assign({
@@ -69,7 +79,7 @@ let getBarSeries = opts => {
         type: 'bar',
         // barWidth: 3 * window.DPR,
         barGap: 0,
-        barCategoryGap: 2* window.DPR,
+        barCategoryGap: 2 * window.DPR,
         label: {
             normal: {
                 show: false
@@ -147,6 +157,34 @@ let title = opts => {
         top: 10 * window.DPR,
     }, opts);
 }
+let axisLabel = (dataLength, labelLength) => {
+    return {
+        interval(index) {
+            if (dataLength < 12) {
+                return true;
+            }
+            if (index === 0 || index === dataLength - 1)
+                return true;
+            let step = Math.round(dataLength / 12);
+            if (index % step === 0) {
+                return true;
+            }
+            return false;
+        },
+        rotate: 40,
+        margin: 8 * window.DPR,
+        formatter(value) {
+            if (value.length > labelLength) {
+                return value.substr(labelLength);
+            }
+            return value;
+        },
+        textStyle: {
+            color: labelColor,
+            fontSize: 8 * window.DPR
+        }
+    }
+};
 export {
     setOption,
     dispose,
@@ -154,6 +192,7 @@ export {
     getBarSeries,
     xAxis,
     yAxis,
+    axisLabel,
     title,
     chartColors
 };

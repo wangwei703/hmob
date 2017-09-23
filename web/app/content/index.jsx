@@ -27,7 +27,7 @@ class Report extends Component {
     renderContent(data,tab) {
         if (tab === 0) {
             return [
-                <TrendChart key="trendchart" rptdata={{ trend: data.trend }} />,
+                <TrendChart key="trendchart" rptdata={{ date: data.date,trend: data.trend }} />,
                 <QuaChart key="quachart" rptdata={{ date: data.date, everyday: data.trend }} />,
                 <MonthTrendChart key="monthtrendchart" rptdata={{ mons: data.mons, everymon: data.everymon }} />];
         } else {

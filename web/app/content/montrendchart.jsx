@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import echart, { dispose, getLineSeries, setOption, title, xAxis, yAxis } from 'libs/echarts';
+import echart, { dispose, getLineSeries, setOption, title, xAxis, yAxis,axisLabel } from 'libs/echarts';
 
 import ChartBase from './chartbase';
 import PropTypes from 'prop-types';
@@ -15,7 +15,8 @@ class componentName extends ChartBase {
                 text: '月度走势',
             }),
             xAxis: xAxis({
-                data: rptdata.mons
+                data: rptdata.mons,
+                axisLabel:axisLabel(0,4)
             }),
             yAxis: yAxis({
                 type: 'value'
