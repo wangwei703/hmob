@@ -3,7 +3,7 @@ import echart, { dispose, getBarSeries, setOption, title, xAxis, yAxis,axisLabel
 
 import ChartBase from './chartbase';
 import PropTypes from 'prop-types';
-
+import {getName} from 'libs/comm';
 class componentName extends ChartBase {
     
     renderChart() {
@@ -30,7 +30,7 @@ class componentName extends ChartBase {
         if (Array.isArray(list) && list.length > 0) {
             list.forEach(item => {
                 series.push(getBarSeries({
-                    name: item.s,
+                    name: getName(item.s),
                     data: item.t,
                     stack:'qua'
                 }));

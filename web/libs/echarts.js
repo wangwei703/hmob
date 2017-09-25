@@ -1,14 +1,14 @@
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/pie';
-import 'echarts/lib/component/markPoint';
+import 'echarts/lib/component/markLine';
 import 'echarts/lib/component/title';
-// import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/tooltip';
 import echarts from 'echarts/lib/echarts';
 
 const Graphic = echarts.graphic;
 export default dom => echarts.init(dom);
-const chartColors = ['#2598e9', '#e26545', '#00CAFF', '#9859F0']; //'#999', '#111',
+const chartColors = ['#2598e9', '#e58026', '#00CAFF', '#9859F0']; //'#999', '#111',
 const bgColor = "#3e366f";
 
 const markColor = "#ddd";

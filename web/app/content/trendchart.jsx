@@ -14,6 +14,9 @@ class componentName extends ChartBase {
             title: title({
                 text: '每日均价',
             }),
+            tooltip:{
+                show:false
+            },
             xAxis: xAxis({
                 type: "value",
                 scale: true,
@@ -29,51 +32,46 @@ class componentName extends ChartBase {
         if (Array.isArray(list) && list.length > 0) {
             list.forEach(item => {
                 let data = item.a.map((a, i) => [i + 1, a]);
+                let myRegression = ecStat.regression('linear', data);
+                let gradient = myRegression.parameter.gradient;
                 series.push(getLineSeries({
                     name: item.s,
                     data,
                     showSymbol: true,
                     symbolSize: 5 * window.DPR,
-
-                }));
-                let myRegression = ecStat.regression('linear', data);
-                let gradient = myRegression.parameter.gradient;
-                series.push(getLineSeries({
-                    name: item.s,
-                    showSymbol: false,
-                    data: myRegression.points,
-                    lineStyle: {
-                        normal: {
-                            width: 1 * window.DPR,
-                            type: 'dashed'
-                        }
-                    },
-                    markPoint: {
-                        itemStyle: {
-                            normal: {
-                                color: 'transparent'
-                            }
-                        },
+                    markLine: {
+                        animation: false,
                         label: {
                             normal: {
-                                show: true,
-                                position: 'left',
-                                offset: [0, 0 * window.DPR],
                                 formatter() {
                                     let v = Math.round(gradient * 100) / 100;
                                     return v;
                                 },
                                 textStyle: {
                                     color: gradient < 0 ? '#F62880' : "#61DA00",
-                                    fontSize: 12 * window.DPR
+                                    fontSize: 12 * window.DPR,
+                                    align: 'right'
                                 }
                             }
                         },
-                        data: [{
-                            coord: myRegression.points[myRegression.points.length - 1]
-                        }]
+                        lineStyle: {
+                            normal: {
+                                width: 1 * window.DPR,
+                                type: 'dashed'
+                            }
+                        },
+                        data: [[{
+                            coord: myRegression.points[0],
+                            symbol: 'none'
+                        }, {
+                            coord: myRegression.points[myRegression.points.length - 1],
+                            symbol: 'none'
+                        }]]
                     }
+
                 }));
+
+
             });
         }
         return series;
