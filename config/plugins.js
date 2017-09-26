@@ -5,6 +5,8 @@ const OpenBrowserPlugin = require('open-browser-webpack-plugin'); //自动打开
 const path = require("path");
 const webpack = require("webpack");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 module.exports = (isProd, build) => {
     let plugins = [
         new CopyWebpackPlugin([{
@@ -48,6 +50,7 @@ module.exports = (isProd, build) => {
 
     } else {
         plugins.push(
+            new BundleAnalyzerPlugin(),
             new webpack.HotModuleReplacementPlugin(),
             new webpack.NamedModulesPlugin(),
             new webpack.NoEmitOnErrorsPlugin(),
