@@ -45,12 +45,13 @@ module.exports = (isProd, build) => {
                 compress: {
                     warnings: false
                 }
-            }));
-        plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
+            }),
+            new webpack.optimize.ModuleConcatenationPlugin(),
+            new BundleAnalyzerPlugin()
+        );
 
     } else {
         plugins.push(
-            new BundleAnalyzerPlugin(),
             new webpack.HotModuleReplacementPlugin(),
             new webpack.NamedModulesPlugin(),
             new webpack.NoEmitOnErrorsPlugin(),

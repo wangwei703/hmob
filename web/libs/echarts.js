@@ -4,23 +4,32 @@ import 'echarts/lib/chart/pie';
 import 'echarts/lib/component/markLine';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/tooltip';
+
 import echarts from 'echarts/lib/echarts';
 
 const Graphic = echarts.graphic;
 export default dom => echarts.init(dom);
-const chartColors = ['#2598e9', '#e58026', '#00CAFF', '#9859F0']; //'#999', '#111',
-const bgColor = "#3e366f";
+const chartColors = ['#45D8FF', '#FA5D0C', '#9859F0']; //'#999', '#111',
+const shadowColor = ['#2bd3ff', '#FF3600'];
+const bgColor = "rgba(0,0,0,.1)";
 
 const markColor = "#ddd";
-const labelColor = "#cdc6e7";
+const labelColor = "#00627F";
 const axisLineColor = "#342b64";
 
-
+const shadow = (opts, idx = 0) => {
+    let o= Object.assign({
+        shadowColor: shadowColor[idx],
+        shadowBlur: 10 * window.DPR,
+        shadowOffsetY: 0
+    }, opts);
+    return o;
+}
 let dispose = chart => {
     if (chart) {
         chart.clear();
         if (!chart.isDisposed())
-        // chart.dispose();
+            // chart.dispose();
             chart = null;
     }
 }
@@ -47,12 +56,14 @@ let setOption = (chart, options) => {
                     backgroundColor: '#a49cc1'
                 }
             },
-
+            textStyle: {
+                fontSize: 12 * window.DPR
+            }
         },
     }, options)
     chart && chart.setOption(newOptions, true); //不合并
 }
-let getLineSeries = opts => {
+let getLineSeries = (opts,idx) => {
     return Object.assign({
         type: 'line',
         smooth: true,
@@ -65,12 +76,9 @@ let getLineSeries = opts => {
             }
         },
         lineStyle: {
-            normal: {
-                width: 2 * window.DPR,
-                shadowColor: 'rgba(0,0,0,.6)',
-                shadowBlur: 5 * window.DPR,
-                shadowOffsetY: 3 * window.DPR
-            }
+            normal: shadow({
+                width: 2 * window.DPR
+            }, idx)
         },
     }, opts)
 }

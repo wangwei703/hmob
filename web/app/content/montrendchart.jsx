@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import echart, { dispose, getLineSeries, setOption, title, xAxis, yAxis,axisLabel } from 'libs/echarts';
+import echart, { axisLabel, dispose, getLineSeries, setOption, title, xAxis, yAxis } from 'libs/echarts';
 
 import ChartBase from './chartbase';
 import PropTypes from 'prop-types';
 import {getName} from 'libs/comm';
+
 class componentName extends ChartBase {
 
     renderChart() {
@@ -27,11 +28,11 @@ class componentName extends ChartBase {
     formatOption(list) {
         let series = [];
         if (Array.isArray(list) && list.length > 0) {
-            list.forEach(item => {
+            list.forEach((item,idx) => {
                 series.push(getLineSeries({
                     name: getName(item.s),
                     data: item.t
-                }));
+                },idx));
             });
         }
         return series;

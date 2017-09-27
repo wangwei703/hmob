@@ -9,21 +9,11 @@
         font-size: 100px; 
         text-align: center;
         padding-top: .4rem;
-        color:lighten(@bg,10%);
+        // color:lighten(@bg,10%);
         letter-spacing: 10px;
         position: relative;
         span {
-            text-shadow: 0 -1px 0 #858585, 0 1px 10px rgba(0, 0, 0, .6), 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .2), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 7px 10px rgba(0, 0, 0, .25), 0 15px 10px rgba(0, 0, 0, .2), 0 25px 15px rgba(0, 0, 0, .15);
-        }
-        &:after {
-            content: '';
-            position: absolute;
-            display: block;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background: linear-gradient(to bottom, @bg 0%, fade(@bg,0) 100%);
+            text-shadow: 0 0 15px  darken(@color,5%);//38B6DC
         }
     }
     .infopanel {

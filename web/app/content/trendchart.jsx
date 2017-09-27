@@ -30,7 +30,7 @@ class componentName extends ChartBase {
     formatOption(list) {
         let series = [];
         if (Array.isArray(list) && list.length > 0) {
-            list.forEach(item => {
+            list.forEach((item,idx) => {
                 let data = item.a.map((a, i) => [i + 1, a]);
                 let myRegression = ecStat.regression('linear', data);
                 let gradient = myRegression.parameter.gradient;
@@ -68,8 +68,7 @@ class componentName extends ChartBase {
                             symbol: 'none'
                         }]]
                     }
-
-                }));
+                },idx));
 
 
             });
