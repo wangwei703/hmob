@@ -6,9 +6,8 @@ import PropTypes from 'prop-types';
 
 class componentName extends ChartBase {
     getValue(data) {
-        if (typeof data === "object" && typeof data.a === "number") {
-            let v = data.a;
-            return v
+        if (typeof data === "number"&&data>=0) {
+            return data
         } else {
             return ;
         }

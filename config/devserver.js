@@ -6,7 +6,7 @@ module.exports = {
     // /////
     hot: true,
     compress: true,
-    port: 2233,
+    port: 3344,
     historyApiFallback: true,
     contentBase: path.resolve(__dirname),
     //publicPath: '/',

@@ -3,21 +3,20 @@ import echart, { axisLabel, dispose, getLineSeries, setOption, title, xAxis, yAx
 
 import ChartBase from './chartbase';
 import PropTypes from 'prop-types';
-import {getName} from 'libs/comm';
+import { getName } from 'libs/comm';
 
 class componentName extends ChartBase {
 
     renderChart() {
-        let { rptdata } = this.props;
-        let s = this.formatOption(rptdata.everymon);
-        let series = s;
+        let { data, monthList } = this.props.rptdata;
+        let series = this.formatOption(data);
         setOption(this.myChart, {
             title: title({
                 text: '月度走势',
             }),
             xAxis: xAxis({
-                data: rptdata.mons,
-                axisLabel:axisLabel(0,4)
+                data: monthList,
+                axisLabel: axisLabel(0, 4)
             }),
             yAxis: yAxis({
                 type: 'value'
@@ -28,11 +27,13 @@ class componentName extends ChartBase {
     formatOption(list) {
         let series = [];
         if (Array.isArray(list) && list.length > 0) {
-            list.forEach((item,idx) => {
+            list.forEach((item, idx) => {
+                let data = item.data.everymonthdata;
+                if (data.every(d => typeof d !== "number" || isNaN(d)||d<0)) return;
                 series.push(getLineSeries({
-                    name: getName(item.s),
-                    data: item.t
-                },idx));
+                    name: item.sname,
+                    data
+                }, idx));
             });
         }
         return series;

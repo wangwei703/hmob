@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
-import echart, { dispose, getBarSeries, setOption, title, xAxis, yAxis,axisLabel } from 'libs/echarts';
+import echart, { axisLabel, dispose, getBarSeries, setOption, title, xAxis, yAxis } from 'libs/echarts';
 
 import ChartBase from './chartbase';
 import PropTypes from 'prop-types';
 import {getName} from 'libs/comm';
+
 class componentName extends ChartBase {
     
     renderChart() {
-        let { rptdata } = this.props;
-        let s = this.formatOption(rptdata.everyday);
-        let series = s;//.map(getLineSeries);
-        let len=rptdata.date.length;
+        let { data, dateList } = this.props.rptdata;
+        let series = this.formatOption(data);
         setOption(this.myChart, {
             title: title({
                 text: '每日房源',
             }),
             xAxis: xAxis({
-                data: rptdata.date,
-                axisLabel:axisLabel(len,5)
+                data: dateList,
+                axisLabel:axisLabel(dateList.length,5)
             }),
             yAxis: yAxis({
                 type: 'value'
@@ -29,9 +28,12 @@ class componentName extends ChartBase {
         let series = [];
         if (Array.isArray(list) && list.length > 0) {
             list.forEach(item => {
+                 let data = item.data.everyday.map(d => typeof d.avg==="number"?d.length:null);
+                //如果数组中没有数值，则返回
+                if(data.every(d=>typeof d!=="number"||isNaN(d)||d<0))return;
                 series.push(getBarSeries({
-                    name: getName(item.s),
-                    data: item.t,
+                    name: item.sname,
+                    data,
                     stack:'qua'
                 }));
             });

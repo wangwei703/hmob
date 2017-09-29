@@ -9,6 +9,7 @@ var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlug
 
 module.exports = (isProd, build) => {
     let plugins = [
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
         new CopyWebpackPlugin([{
             from: path.resolve(__dirname, `../web/app/db/*.json`),
             to: path.resolve(build, './data/'),
@@ -55,7 +56,7 @@ module.exports = (isProd, build) => {
             new webpack.HotModuleReplacementPlugin(),
             new webpack.NamedModulesPlugin(),
             new webpack.NoEmitOnErrorsPlugin(),
-            new OpenBrowserPlugin({ url: 'http://localhost:2233', browser: "chrome" })
+            new OpenBrowserPlugin({ url: 'http://localhost:3344', browser: "chrome" })
         )
     }
     return plugins;

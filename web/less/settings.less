@@ -1,17 +1,22 @@
+@c:#f5f5f5;
 .settings() {
     .settings-panel {
         overflow: hidden;
         .am-drawer-sidebar {
-            background-color: #f5f5f5;
+            background-color: @c;
             box-shadow: none!important;
             width: 80vw;
+            display: flex;
             overflow: auto;
             line-height: 60px;
+            .am-drawer-content{
+                flex: 1;
+            }
             .setting-header {
                 background-color: @bg;
                 height: 200px;
                 line-height: 200px;
-                color: #f5f5f5;
+                color: @c;
                 font-size: 50px;
                 padding-left: 50px;
             }
@@ -23,7 +28,7 @@
             transform: rotate(45deg);
             .bar {
                 &:nth-of-type(1) {
-                    top: 40px;
+                    top: 32px;
                     transform: rotate(0deg);
                     // transition: top 0.3s ease 0.1s, transform 0.3s ease-out 0.5s;
                 }
@@ -31,7 +36,7 @@
                     opacity: 0;
                 }
                 &:nth-of-type(3) {
-                    top: 40px;
+                    top: 32px;
                     transform: rotate(90deg);
                     // transition: top 0.3s ease 0.1s, transform 0.3s ease-out 0.7s;
                 }
@@ -43,36 +48,40 @@
     }
     .setting-toggle-btn {
         position: fixed;
-        right: 30px;
-        top: 30px;
-        width: 90px;
-        height: 90px;
+        right: 15px;
+        top: 15px;
+        width: 77px;
+        height: 77px;
         padding:15px;
-        z-index: 10000;
+        z-index: 3;
         border-radius: 50%;
         background: transparent;
         border: none;
         .bar {
             height: 5px;
-            width: 60px;
+            width: 45px;
             display: block;
             margin: 5px auto;
             position: absolute;
-            background-color: #f5f5f5;
+            background-color:lighten(@orange,10%);
             border-radius: 10px;
             // transition: 0.4s;
             &:nth-of-type(1) {
-                top: 20px;
+                top: 15px;
                 // transition: top 0.3s ease 0.3s, transform 0.3s ease-out 0.1s;
             }
             &:nth-of-type(2) {
-                top: 40px;
+                top: 30px;
                 // transition: ease 0.3s 0.3s;
             }
             &:nth-of-type(3) {
-                top: 60px;
+                top: 45px;
                 // transition: top 0.3s ease 0.3s, transform 0.3s ease-out 0.1s;
             }
         }
+    }
+    .btn-save{
+        margin: 0 30px;
+        color:@c!important;
     }
 }

@@ -1,25 +1,20 @@
 import React, { Component } from 'react';
-import echart, { dispose, getLineSeries, setOption, title, xAxis, yAxis } from 'libs/echarts';
+import echart, { axisLabel, dispose, getLineSeries, setOption, title, xAxis, yAxis } from 'libs/echarts';
 
 import ChartBase from './chartbase';
 import PropTypes from 'prop-types';
-import ecStat from 'echarts-stat';
 
 class componentName extends ChartBase {
     renderChart() {
-        let { rptdata } = this.props;
-        let s = this.formatOption(rptdata.trend);
-        let series = s;//.map(getLineSeries);
+        let { data, dateList } = this.props.rptdata;
+        let series = this.formatOption(data);
         setOption(this.myChart, {
             title: title({
                 text: '每日均价',
             }),
-            tooltip:{
-                show:false
-            },
             xAxis: xAxis({
-                type: "value",
-                scale: true,
+                data: dateList,
+                axisLabel: axisLabel(dateList.length, 5)
             }),
             yAxis: yAxis({
                 type: 'value'
@@ -30,25 +25,25 @@ class componentName extends ChartBase {
     formatOption(list) {
         let series = [];
         if (Array.isArray(list) && list.length > 0) {
-            list.forEach((item,idx) => {
-                let data = item.a.map((a, i) => [i + 1, a]);
-                let myRegression = ecStat.regression('linear', data);
-                let gradient = myRegression.parameter.gradient;
+            list.forEach((item, idx) => {
+                let gradient = item.data.everydayTrend,
+                    data = item.data.everyday.map(d => d.avg);
+                //如果数组中没有数值，则返回
+                if(data.every(d=>typeof d!=="number"||isNaN(d)||d<0))return;
                 series.push(getLineSeries({
-                    name: item.s,
+                    name: item.sname,
                     data,
                     showSymbol: true,
                     symbolSize: 5 * window.DPR,
                     markLine: {
-                        animation: false,
+                        animation: true,
                         label: {
                             normal: {
-                                formatter() {
-                                    let v = Math.round(gradient * 100) / 100;
-                                    return v;
+                               formatter() {
+                                    return gradient.v;
                                 },
                                 textStyle: {
-                                    color: gradient < 0 ? '#F62880' : "#61DA00",
+                                    color: gradient.v < 0 ? '#F62880' : "#61DA00",
                                     fontSize: 12 * window.DPR,
                                     align: 'right'
                                 }
@@ -60,15 +55,9 @@ class componentName extends ChartBase {
                                 type: 'dashed'
                             }
                         },
-                        data: [[{
-                            coord: myRegression.points[0],
-                            symbol: 'none'
-                        }, {
-                            coord: myRegression.points[myRegression.points.length - 1],
-                            symbol: 'none'
-                        }]]
+                        data: gradient.data
                     }
-                },idx));
+                }, idx));
 
 
             });

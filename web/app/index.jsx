@@ -1,34 +1,39 @@
 import "./index.less";
 
-import { Button, Drawer, Flex, Icon } from 'antd-mobile';
+import { Button, Drawer, Flex, Icon, Toast } from 'antd-mobile';
 import React, { Component } from 'react'
 
 import Content from 'app/content';
 import Nav from 'app/nav';
 import Settings from 'app/settings';
 import fetchData from 'libs/fetch';
-import formatData from 'libs/formatdata';
+import getRules from 'libs/filterrules';
+import stat from 'libs/stat';
 
 export default class App extends Component {
   state = {
     loading: true,
     data: [],
     selectedIndex: 0,
-    open: true
+    open: false,
+    filterrules: getRules()
   }
-  onDrawerToggle = e => {
-    console.log(e);
-    // this.setState({ open: !this.state.open });
+  onOpenChange = e => {
+
+    this.setState({ open: !this.state.open });
   }
-  onOpenChange = open => {
-    if (typeof open !== "boolean") {
-      open = !this.state.open;
-    }
-    this.setState({ open: !!open });
+
+  doApplyRules = () => {
+    //关闭
+    Toast.loading('正在统计...', 0);
+    this.doStat();
+    Toast.hide();
   }
-  componentDidMount() {
-    fetchData("data").then(json => {
-      let list = formatData(json);
+
+  doStat() {
+    if (this.houseData) {
+      window.HouseData = this.houseData;
+      let list = stat(this.houseData);
       window.RPTData = list;
       let data = list[this.state.selectedIndex];
       this.setState({
@@ -36,6 +41,12 @@ export default class App extends Component {
         list,
         data
       });
+    }
+  }
+  componentDidMount() {
+    fetchData("list").then(data => {
+      this.houseData= data;
+      this.doStat();
     });
   }
   onNavBarChange = (selectedIndex, name) => {
@@ -59,9 +70,9 @@ export default class App extends Component {
           className="settings-panel"
           position="right"
           enableDragHandle
-          sidebar={<Settings doOpenChange={this.onOpenChange} />}
+          sidebar={<Settings doApplyRules={this.doApplyRules} filterRules={this.state.filterrules} />}
           open={this.state.open}
-          onOpenChange={this.onDrawerToggle}>
+          onOpenChange={this.onOpenChange}>
           <Button className="setting-toggle-btn" onClick={e => { this.onOpenChange() }}>
             <div className="bar"></div>
             <div className="bar"></div>

@@ -1,4 +1,5 @@
 import Community from "./cfg";
+import doStat from './stat';
 
 function padStart(num) {
     if (num < 10)
@@ -101,7 +102,12 @@ function formatTrend(list, comm) {
     return [];
 }
 
-export default json => {
+function filter(houseList) {
+    return houseList;
+}
+
+export default houseList => {
+    let json=doStat(houseList);
     let data = [];
     Community.forEach(c => {
         let today = formatToday(json.today, c.key),
@@ -111,7 +117,7 @@ export default json => {
             trend = formatTrend(json.trend, c.key);
         data.push({
             date: json.date,
-            mons:json.mons,
+            mons: json.mons,
             source: json.source,
             name: c.name,
             today,
