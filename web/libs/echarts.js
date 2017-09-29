@@ -3,25 +3,28 @@ import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/pie';
 import 'echarts/lib/component/markLine';
 import 'echarts/lib/component/title';
-import 'echarts/lib/component/tooltip';
 
 import echarts from 'echarts/lib/echarts';
 
+// import 'echarts/lib/component/tooltip';
+
+
+
 const Graphic = echarts.graphic;
 export default dom => echarts.init(dom);
-const chartColors = ['#45D8FF', '#FA5D0C', '#9859F0']; //'#999', '#111',
-const shadowColor = ['#2bd3ff', '#FF3600'];
+const chartColors = ['#45D8FF', '#02bf9c', '#9859F0']; //'#999', '#111',
+const shadowColor = ['#2bd3ff', '#04aa8c'];
 const bgColor = "rgba(0,0,0,.1)";
 
 const markColor = "#ddd";
-const labelColor = "#00627F";
+const labelColor = "#21b1d7";
 const axisLineColor = "#342b64";
 
 const shadow = (opts, idx = 0) => {
-    let o= Object.assign({
+    let o = Object.assign({
         shadowColor: shadowColor[idx],
-        shadowBlur: 10 * window.DPR,
-        shadowOffsetY: 0
+        shadowBlur: 15 * window.DPR,
+        shadowOffsetY: 3 * window.DPR
     }, opts);
     return o;
 }
@@ -40,10 +43,11 @@ let setOption = (chart, options) => {
         color: chartColors,
         animation: false,
         grid: {
-            left: 35 * window.DPR,
+            left: 10 * window.DPR,
             right: 10 * window.DPR,
             top: 40 * window.DPR,
-            bottom: 30 * window.DPR
+            bottom: 15 * window.DPR,
+            containLabel: true
         },
         textStyle: {
             fontSize: 12 * window.DPR
@@ -63,7 +67,7 @@ let setOption = (chart, options) => {
     }, options)
     chart && chart.setOption(newOptions, true); //不合并
 }
-let getLineSeries = (opts,idx) => {
+let getLineSeries = (opts, idx) => {
     return Object.assign({
         type: 'line',
         smooth: true,
@@ -85,7 +89,7 @@ let getLineSeries = (opts,idx) => {
 let getBarSeries = opts => {
     return Object.assign({}, {
         type: 'bar',
-        // barWidth: 3 * window.DPR,
+        // barWidth: '45%',
         barGap: 0,
         barCategoryGap: 2 * window.DPR,
         label: {
@@ -202,5 +206,6 @@ export {
     yAxis,
     axisLabel,
     title,
-    chartColors
+    chartColors,
+    shadowColor
 };

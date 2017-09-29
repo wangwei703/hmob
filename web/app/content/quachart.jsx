@@ -3,7 +3,6 @@ import echart, { axisLabel, dispose, getBarSeries, setOption, title, xAxis, yAxi
 
 import ChartBase from './chartbase';
 import PropTypes from 'prop-types';
-import {getName} from 'libs/comm';
 
 class componentName extends ChartBase {
     

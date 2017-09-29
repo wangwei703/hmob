@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
+import { chartColors, shadowColor } from 'libs/echarts';
 
 import PropTypes from 'prop-types';
 import TodayChart from './todaychart';
-import { chartColors } from 'libs/echarts';
 
 class componentName extends Component {
 
@@ -21,12 +21,12 @@ class componentName extends Component {
                 text = rd.sname,
                 today = data.todaydata,
                 thismon = data.thismondata,
-                tc = this.formatTrendColor(data.everydayTrend.v)
+                shadowcolor = shadowColor[idx]
             return <div key={idx + "-1"} className="infopanel-col-item">
                 <TodayChart rptdata={{
                     color,
                     text,
-                    tc,
+                    shadowcolor,
                     data: {
                         today,
                         thismon

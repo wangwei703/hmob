@@ -74,7 +74,7 @@ class componentName extends Component {
                     </Item>
                 ))}
             </List>
-            <WhiteSpace size="lg" />
+            <WhiteSpace size="lg" style={{minHeight:"30px"}}/>
             {/* <Button className="btn-save" type="primary" onClick={this.doSave}>确定</Button>
             <WhiteSpace size="lg" /> */}
         </Flex>)

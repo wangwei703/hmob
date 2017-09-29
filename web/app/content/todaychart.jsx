@@ -6,39 +6,42 @@ import PropTypes from 'prop-types';
 
 class componentName extends ChartBase {
     getValue(data) {
-        if (typeof data === "number"&&data>=0) {
+        if (typeof data === "number" && data >= 0) {
             return data
         } else {
-            return ;
+            return;
         }
     }
     formatSeries(rptdata) {
         let v = this.getValue(rptdata.data.today),
             mv = this.getValue(rptdata.data.thismon),
-            trendColor = rptdata.tc;
+            shadowcolor = rptdata.shadowcolor;
         let series = [{
             name: 'Pie1',
             type: 'pie',
             clockWise: false,
-            radius: ['77%', '80%'],
-            itemStyle: {
-                normal: {
-                    label: {
-                        show: false
-                    },
-                    labelLine: {
-                        show: false
-                    }
-                }
-            },
+            radius: ['80%', '86%'],
+
             hoverAnimation: false,
             data: [{
                 value: v,
+                itemStyle: {
+                    normal: {
+                        shadowColor: shadowcolor,
+                        shadowBlur: 40 * window.DPR,
+                        label: {
+                            show: false
+                        },
+                        labelLine: {
+                            show: false
+                        }
+                    }
+                },
                 label: {
                     normal: {
-                        formatter(s){
-                            if(typeof s.value==="number"){
-                                return "￥"+s.value
+                        formatter(s) {
+                            if (typeof s.value === "number") {
+                                return "￥" + s.value
                             }
                             return "-"
                         },
@@ -66,40 +69,7 @@ class componentName extends ChartBase {
                 }
             }]
         }];
-        if (trendColor) {
-            series.push({
-                name: 'Pie1',
-                type: 'pie',
-                clockWise: false,
-                radius: ['89%', '90%'],
-                itemStyle: {
-                    normal: {
-                        label: {
-                            show: false
-                        },
-                        labelLine: {
-                            show: false
-                        }
-                    }
-                },
-                hoverAnimation: false,
-                data: [{
-                    value: 100,
-                    label: {
-                        normal: {
-                            show: false
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            color: trendColor,
-                            // shadowColor: trendColor,
-                            // shadowBlur: 10 * window.DPR
-                        }
-                    }
-                }]
-            });
-        }
+
         return { series, mv };
     }
     renderChart() {
@@ -110,7 +80,7 @@ class componentName extends ChartBase {
             color: [rptdata.color],
             title: {
                 text: rptdata.text,
-                subtext:typeof mv==="number"?("\n\n\n￥" + mv):"",
+                subtext: typeof mv === "number" ? ("\n\n\n￥" + mv) : "",
                 x: 'center',
                 y: '25%',
                 textStyle: {

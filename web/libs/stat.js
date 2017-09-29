@@ -18,13 +18,11 @@ function filterPrice(list, range) {
 }
 function calcAvg(list) {
     if (Array.isArray(list) && list.length > 0) {
-        let len = list.length,
-            sum = list.reduce((a, b) => a + b[0], 0);
-        return Math.floor(sum / len);
+        return Math.floor(ecStat.statistics.mean(list.map(i => i[0])));
     }
     return null;
 }
-function getAvgAndLength(list, day, cid, sid, filter) {
+function getAvgAndOther(list, day, cid, sid, filter) {
     let commData = list.find(l => l.k === cid);
     if (commData && Array.isArray(commData.l)) {
         let dayData = commData.l.find(l => l.d === day);
@@ -32,15 +30,16 @@ function getAvgAndLength(list, day, cid, sid, filter) {
             let sData = dayData.l.find(l => l.k === sid);
             if (sData && Array.isArray(sData.l) && sData.l.length > 0) {
                 let list2 = filterPrice(sData.l, filter.pricerange[cid]);
-                let avg = calcAvg(list2);
+                let price = list2.map(p => p[0]),
+                    avg = calcAvg(list2);
                 if (isNumber(avg))
-                    return { avg, length: list2.length };
+                    return { avg, length: list2.length, price };
             }
         }
     }
-    return { avg: null, length: 0 };
+    return { avg: null, length: 0, price: [] };
 }
-function getDateList(date,range) {
+function getDateList(date, range) {
     return getNearbyDays(date, range)
 }
 
@@ -52,14 +51,25 @@ function statPreMonth(mtrendList, thismonth, cid, sid) {
         if (isNumber(md))
             return md;
     }
-    return ;
+    return;
 }
 function statToday(list, today, cid, sid, filter) {
-    return getAvgAndLength(list, today, cid, sid, filter).avg;
+    return getAvgAndOther(list, today, cid, sid, filter).avg;
 }
 function statEveryday(list, date, cid, sid, filter) {
-    return date.map(d => getAvgAndLength(list, d, cid, sid, filter));
+    return date.map(d => getAvgAndOther(list, d, cid, sid, filter));
 }
+function statWeekPriceDistribution(list, date, cid, sid, filter) {
+    let price = date.map(d => getAvgAndOther(list, d, cid, sid, filter).price);
+    let newPrice = [];
+    price.forEach(p => {
+        newPrice.push(...p);
+    });
+    if (newPrice.length > 0)
+        return ecStat.histogram(newPrice).data;//sturges
+    return [];
+}
+
 function statEverydayTrend(list) {
     let data = [], x = 0;
     list.forEach(d => {
@@ -87,14 +97,15 @@ function statEverymonth(mtrend, month, cid, sid) {
 //统计 入口函数
 //小区id,data
 function main(cid, props) {
-    let { data, mtrend, source, filter, date, month, today, thismonth } = props;
+    let { data, mtrend, source, filter, date, month, today, thismonth, weekDays } = props;
     return source.map(s => {
         let [sid, sname] = s;
         let thismondata = statPreMonth(mtrend, thismonth, cid, sid),
             todaydata = statToday(data, today, cid, sid, filter),
             everyday = statEveryday(data, date, cid, sid, filter),
             everydayTrend = statEverydayTrend(everyday),
-            everymonthdata = statEverymonth(mtrend, month, cid, sid);
+            everymonthdata = statEverymonth(mtrend, month, cid, sid),
+            weekPriceDistribution = statWeekPriceDistribution(data, date, cid, sid, filter);
         return {
             sid,
             sname,
@@ -103,7 +114,8 @@ function main(cid, props) {
                 todaydata,
                 everyday,
                 everydayTrend,
-                everymonthdata
+                everymonthdata,
+                weekPriceDistribution
             }
         }
     })
@@ -111,6 +123,7 @@ function main(cid, props) {
 export default data => {
     let filterRules = getRules();
     let dateList = getDateList(data.date, filterRules.daterange),
+        weekDays = getDateList(data.date, -7),
         monthList = getNearbyMonths(),
         today = getToday(),
         thismonth = getThisMonth(),
@@ -126,9 +139,10 @@ export default data => {
                 date: dateList,
                 month: monthList,
                 today,
-                thismonth
+                thismonth,
+                weekDays
             }),
-            key:c.key,
+            key: c.key,
             name: c.name,
             dateList,
             monthList

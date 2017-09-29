@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import InfoPanel from 'app/content/infopanel';
 import MonthTrendChart from './montrendchart';
+import PriceDistchart from './pricedistchart';
 import PropTypes from 'prop-types';
 import QuaChart from './quachart';
 import TrendChart from './trendchart';
@@ -24,6 +25,7 @@ class Report extends Component {
                 <InfoPanel rptdata={data} />
                 <TrendChart key="trendchart" rptdata={{ data, dateList }} />
                 <QuaChart key="quachart" rptdata={{ data, dateList }} />
+                <PriceDistchart key="pricedistchart" rptdata={{ data }} />
                 <MonthTrendChart key="monthtrendchart" rptdata={{ data, monthList }} />
             </div>
         )
