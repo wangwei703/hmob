@@ -14,12 +14,18 @@
             }
             .setting-header {
                 background-color: @bg;
-                height: 200px;
-                line-height: 200px;
+                height: 150px;
+                line-height: 150px;
                 color: @c;
-                font-size: 50px;
-                padding-left: 50px;
+                font-size: 40px;
+                padding-left: 40px;
             }
+        }
+        .am-drawer-content {
+            height: 100%;
+            width: 100%;
+            &:extend(.flex-column);
+            overflow: hidden;
         }
     }
     .am-drawer-open {
@@ -45,6 +51,7 @@
         background-color: @bg2!important;
     }
     .setting-toggle-btn {
+        background-color: fade(@bg, 90%);
         position: fixed;
         right: 15px;
         top: 15px;
@@ -53,11 +60,10 @@
         padding: 15px;
         z-index: 3;
         border-radius: 50%;
-        background: transparent;
         border: none;
         .bar {
             height: 5px;
-            width: 45px;
+            width: 47px;
             display: block;
             margin: 5px auto;
             position: absolute;

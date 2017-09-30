@@ -31,7 +31,7 @@ class componentName extends Component {
                         today,
                         thismon
                     }
-                }} style={{ margin: 0, height: '40vw' }} />
+                }} style={{ margin: 0, minHeight: '100%' }} />
             </div>;
         })
     }

@@ -27,8 +27,8 @@
         "echarts-stat": "^1.1.0",
         "fastclick": "^1.0.6",
         "moment": "^2.18.1",
-        "react": "^15.6.1",
-        "react-dom": "^15.6.1",
+        "react": "^16.0.0",
+        "react-dom": "^16.0.0",
         "react-fastclick": "^3.0.2",
         "selfsigned": "^1.10.1"
     },

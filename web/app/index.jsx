@@ -1,6 +1,6 @@
 import "./index.less";
 
-import { Button, Drawer, Flex, Icon, Toast } from 'antd-mobile';
+import { Button, Drawer, Icon, Toast } from 'antd-mobile';
 import React, { Component } from 'react'
 
 import Content from 'app/content';
@@ -45,7 +45,7 @@ export default class App extends Component {
   }
   componentDidMount() {
     fetchData("list").then(data => {
-      this.houseData= data;
+      this.houseData = data;
       this.doStat();
     });
   }
@@ -78,10 +78,8 @@ export default class App extends Component {
             <div className="bar"></div>
             <div className="bar"></div>
           </Button>
-          <Flex direction="column" justify="stretch" align="stretch" className="layout">
-            <Content rptdata={this.state.data} />
-            <Nav selectedIndex={this.state.selectedIndex} rptdata={this.state.list} onChange={this.onNavBarChange} />
-          </Flex>
+          <Content rptdata={this.state.data} />
+          <Nav selectedIndex={this.state.selectedIndex} rptdata={this.state.list} onChange={this.onNavBarChange} />
         </Drawer>
 
     );
