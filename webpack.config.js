@@ -1,14 +1,17 @@
 
+const nodeEnv = process.env.NODE_ENV || 'development';
+nodeEnvs = nodeEnv.split("+");
 
-const nodeEnv = process.env.NODE_ENV || 'development',
-    isProd = nodeEnv === 'production',
+const isProd = nodeEnvs.includes('production'),
+    isBundleAnalyzer = nodeEnvs.includes('bundleanalyzer'),
     path = require("path");
+// console.log(isProd, isBundleAnalyzer);
 let
     cleanPlugin = require("clean-webpack-plugin"),
     src = path.resolve(__dirname, "web"),
     build = path.resolve(__dirname, "build"),
     output = require("./config/output")(isProd, build),
-    plugins = require("./config/plugins")(isProd, build),
+    plugins = require("./config/plugins")(isProd, isBundleAnalyzer, build),
     resolve = require("./config/resolve"),
     rules = require("./config/rules")(src),
     devServer = require("./config/devserver"),

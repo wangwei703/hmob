@@ -7,7 +7,7 @@ const webpack = require("webpack");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-module.exports = (isProd, build) => {
+module.exports = (isProd,isBA, build) => {
     let plugins = [
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
         new CopyWebpackPlugin([{
@@ -37,6 +37,9 @@ module.exports = (isProd, build) => {
             __DEV__: !isProd
         })
     ];
+    if(isBA){
+          plugins.push( new BundleAnalyzerPlugin());
+    }
     if (isProd) {
         plugins.push(
             new webpack.optimize.UglifyJsPlugin({
@@ -48,7 +51,6 @@ module.exports = (isProd, build) => {
                 }
             }),
             new webpack.optimize.ModuleConcatenationPlugin(),
-            new BundleAnalyzerPlugin()
         );
 
     } else {
