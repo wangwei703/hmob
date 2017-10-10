@@ -27,12 +27,12 @@ class componentName extends ChartBase {
         if (Array.isArray(list) && list.length > 0) {
             list.forEach((item, idx) => {
                 let gradient = item.data.everydayTrend,
-                    data = item.data.everyday.map(d => d.avg);
-                //如果数组中没有数值，则返回
-                if(data.every(d=>typeof d!=="number"||isNaN(d)||d<0))return;
+                    data = item.data.everyday.map(d => d.avg),
+                    isEmpty=data.every(d=>typeof d!=="number"||isNaN(d)||d<0);
                 series.push(getLineSeries({
                     name: item.sname,
                     data,
+                    symbol:'circle',
                     showSymbol: true,
                     symbolSize: 5 * window.DPR,
                     markLine: {
@@ -43,7 +43,7 @@ class componentName extends ChartBase {
                                     return gradient.v;
                                 },
                                 textStyle: {
-                                    color: gradient.v < 0 ? '#F62880' : "#34D9BC",
+                                    color: gradient.v < 0 ? '#f62880' : "#34d9bc",
                                     fontSize: 12 * window.DPR,
                                     align: 'right'
                                 }
@@ -57,7 +57,7 @@ class componentName extends ChartBase {
                         },
                         data: gradient.data
                     }
-                }, idx));
+                }, idx,isEmpty));
 
 
             });

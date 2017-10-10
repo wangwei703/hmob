@@ -5,6 +5,7 @@ import 'echarts/lib/component/markLine';
 import 'echarts/lib/component/title';
 
 import echarts from 'echarts/lib/echarts';
+import {hex2RGBA} from './colorFormat';
 
 // import 'echarts/lib/component/tooltip';
 
@@ -21,9 +22,10 @@ const labelColor = "#ADA6B8";
 
 const shadow = (opts, idx = 0) => {
     let o = Object.assign({
-        shadowColor: shadowColor[idx],
-        shadowBlur: 15 * window.DPR,
-        shadowOffsetY: 3 * window.DPR
+        color:chartColors[idx],
+        shadowColor: 'rgba(0,0,0,0.4)',//shadowColor[idx],
+        shadowBlur: 10 * window.DPR,
+        shadowOffsetY: 10 * window.DPR
     }, opts);
     return o;
 }
@@ -66,8 +68,8 @@ let setOption = (chart, options) => {
     }, options)
     chart && chart.setOption(newOptions, true); //不合并
 }
-let getLineSeries = (opts, idx) => {
-    return Object.assign({
+let getLineSeries = (opts, idx,isEmpty=false) => {
+    let newOpts=Object.assign({
         type: 'line',
         smooth: true,
         showAllSymbol: true,
@@ -82,8 +84,23 @@ let getLineSeries = (opts, idx) => {
             normal: shadow({
                 width: 2 * window.DPR
             }, idx)
-        },
-    }, opts)
+        }
+    }, opts);
+    if(!isEmpty){
+        newOpts["areaStyle"]={
+            normal: {
+                color: new Graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: hex2RGBA(shadowColor[idx],0.3)
+                }, {
+                    offset: 1,
+                    color: hex2RGBA(shadowColor[idx],0)
+                }], false),
+               
+            }
+        }
+    }
+    return newOpts;
 }
 let getBarSeries = opts => {
     return Object.assign({}, {

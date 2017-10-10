@@ -58,7 +58,7 @@ class componentName extends ChartBase {
                 name: 'invisible',
                 itemStyle: {
                     normal: {
-                        color: 'rgba(68, 68, 68,.5)', // 未完成的圆环的颜色
+                        color: 'rgba(0, 0, 0,.05)', // 未完成的圆环的颜色
                         label: {
                             show: false
                         },
