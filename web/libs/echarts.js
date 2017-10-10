@@ -12,13 +12,12 @@ import echarts from 'echarts/lib/echarts';
 
 const Graphic = echarts.graphic;
 export default dom => echarts.init(dom);
-const chartColors = ['#45D8FF', '#02bf9c', '#9859F0']; //'#999', '#111',
-const shadowColor = ['#2bd3ff', '#04aa8c'];
-const bgColor = "rgba(0,0,0,.1)";
+const chartColors = ['#48A6F5', '#9859F0']; //'#999', '#111',
+const shadowColor = ['#2f8fdf', '#7a3bd1'];
+const bgColor = "rgba(0,0,0,0)";
 
-const markColor = "#ddd";
-const labelColor = "#21b1d7";
-const axisLineColor = "#342b64";
+const titleColor = "#5E5374";
+const labelColor = "#ADA6B8";
 
 const shadow = (opts, idx = 0) => {
     let o = Object.assign({
@@ -110,7 +109,7 @@ let axis = (xy, opts) => {
         splitLine: {
             show: true,
             lineStyle: {
-                color: 'rgba(55, 55, 55, 0.7)',
+                color: 'rgba(0, 0, 0, 0.07)',
                 // type: 'dashed',
                 width: 1 * window.DPR
             }
@@ -136,7 +135,6 @@ let yAxis = opts => {
         scale: true,
         nameLocation: 'end',
         axisLabel: {
-
             textStyle: {
                 color: labelColor,
                 fontSize: 8 * window.DPR
@@ -162,7 +160,7 @@ let xAxis = opts => {
 let title = opts => {
     return Object.assign({}, {
         textStyle: {
-            color: labelColor,
+            color: titleColor,
             fontSize: 12 * window.DPR
         },
         left: 5 * window.DPR,

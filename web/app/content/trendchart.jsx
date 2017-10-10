@@ -43,7 +43,7 @@ class componentName extends ChartBase {
                                     return gradient.v;
                                 },
                                 textStyle: {
-                                    color: gradient.v < 0 ? '#F62880' : "#61DA00",
+                                    color: gradient.v < 0 ? '#F62880' : "#34D9BC",
                                     fontSize: 12 * window.DPR,
                                     align: 'right'
                                 }

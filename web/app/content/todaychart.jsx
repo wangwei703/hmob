@@ -27,8 +27,8 @@ class componentName extends ChartBase {
                 value: v,
                 itemStyle: {
                     normal: {
-                        shadowColor: shadowcolor,
-                        shadowBlur: 40 * window.DPR,
+                        // shadowColor: shadowcolor,
+                        // shadowBlur: 40 * window.DPR,
                         label: {
                             show: false
                         },

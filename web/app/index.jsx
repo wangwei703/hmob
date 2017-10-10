@@ -70,6 +70,8 @@ export default class App extends Component {
           className="settings-panel"
           position="right"
           enableDragHandle
+          dragHandleStyle={{backgroundColor:"rgba(0,0,0,0)"}}
+          sidebarStyle={{ border: '0 solid #fff' }}
           sidebar={<Settings doApplyRules={this.doApplyRules} filterRules={this.state.filterrules} />}
           open={this.state.open}
           onOpenChange={this.onOpenChange}>
