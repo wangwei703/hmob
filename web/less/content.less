@@ -4,15 +4,20 @@
         flex: 1;
         overflow-y: auto!important;
         -webkit-overflow-scrolling: touch;
+        animation: content-anim 1s;
+        animation-delay: 2.2s;
+        opacity: 0;
+        transform: scale(.3);
+        .animation();
     }
     .title {
-        font-size: 65px; 
+        font-size: 65px;
         text-align: center;
         padding-top: 30px;
         letter-spacing: 10px;
         position: relative;
         span {
-            text-shadow: 0 0 15px  fade(@color,40);
+            text-shadow: 0 0 15px fade(@color, 40);
         }
     }
     .infopanel {

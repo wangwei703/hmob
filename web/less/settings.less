@@ -15,8 +15,7 @@
             .setting-header {
                 background-color: @bg;
                 height: 150px;
-                line-height: 150px;
-                // color: @c;
+                line-height: 150px; // color: @c;
                 font-size: 40px;
                 padding-left: 40px;
             }
@@ -61,6 +60,10 @@
         z-index: 3;
         border-radius: 50%;
         border: none;
+        animation: settings-btn-anim .6s;
+        animation-delay: .6s;
+        transform: translateY(-80px);
+       .animation();
         .bar {
             height: 5px;
             width: 47px;

@@ -8,6 +8,10 @@
         background-color: @bottom-navbar-bg;
         display: flex;
         justify-content: space-around;
+        animation: navbar-anim .4s;
+        animation-delay: 1.3s;
+        opacity: 0;
+        .animation();
         .hm-item {
             display: block;
             text-align: center;
@@ -16,8 +20,12 @@
             margin: 0;
             background-color: transparent!important;
             color: @color2!important;
+            animation: navbar-item-anim .4s;
+            animation-delay: 1.6s;
+            transform: translateY(100%);
+            .animation();
         }
-        .hm-item-selected{
+        .hm-item-selected {
             background-color: @bottom-navbar-active-bg!important;
             pointer-events: none;
         }
