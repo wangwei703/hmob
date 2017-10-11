@@ -91,7 +91,7 @@ let getLineSeries = (opts, idx,isEmpty=false) => {
             normal: {
                 color: new Graphic.LinearGradient(0, 0, 0, 1, [{
                     offset: 0,
-                    color: hex2RGBA(shadowColor[idx],0.3)
+                    color: hex2RGBA(shadowColor[idx],0.2)
                 }, {
                     offset: 1,
                     color: hex2RGBA(shadowColor[idx],0)
